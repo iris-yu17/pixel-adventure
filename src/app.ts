@@ -1,10 +1,15 @@
 import { Application } from 'pixi.js';
 
+const SCREEN = {
+  WIDTH: 1000,
+  HEIGHT: 600
+};
+
 // 創建 pixi app
 const app = new Application();
 
 // init pixi app
-await app.init({ background: '#1099bb', resizeTo: window });
+await app.init({ background: '#1099bb', width: SCREEN.WIDTH, height: SCREEN.HEIGHT });
 
 // 放到 DOM 裡面
 document.querySelector('#app')?.appendChild(app.canvas);

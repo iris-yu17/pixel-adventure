@@ -1,6 +1,7 @@
 enum KEY {
   ArrowRight = 'ArrowRight',
-  ArrowLeft = 'ArrowLeft'
+  ArrowLeft = 'ArrowLeft',
+  ArrowUp = 'ArrowUp'
 }
 
 
