@@ -1,9 +1,5 @@
 import { Application } from 'pixi.js';
-
-const SCREEN = {
-  WIDTH: 1000,
-  HEIGHT: 600
-};
+import { SCREEN } from './constants/config';
 
 // 創建 pixi app
 const app = new Application();

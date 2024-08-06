@@ -1,7 +1,7 @@
 import { Assets, Texture, AnimatedSprite, Ticker } from 'pixi.js';
 import { app } from './../app';
 import { KEY } from '../types/key';
-import { PHYSICS, SPEED } from '../constants/config';
+import { PHYSICS, SPEED, SCREEN, CHARACTER } from '../constants/config';
 
 enum Action {
   Idle = 'idle',
@@ -50,7 +50,7 @@ class Character {
 
     // create avatar
     this.avatar = new AnimatedSprite(this.textures.idle);
-    this.avatar.animationSpeed = 0.25;
+    this.avatar.animationSpeed = 0.35;
     this.avatar.position.set(this.x, this.y);
     this.avatar.anchor.set(0.5, 0.5);
     this.avatar.loop = true;
@@ -88,11 +88,15 @@ class Character {
 
     if (this.pressedKeys.has(KEY.ArrowRight)) {
       this.facingRight = true;
+
+      if (this.x > SCREEN.WIDTH - CHARACTER.SIZE / 2) return;
       this.x += SPEED.CHARACTER_RUN * deltaTime;
     }
 
     if (this.pressedKeys.has(KEY.ArrowLeft)) {
       this.facingRight = false;
+
+      if (this.x < CHARACTER.SIZE / 2) return;
       this.x -= SPEED.CHARACTER_RUN * deltaTime;
     }
 
@@ -110,7 +114,7 @@ class Character {
       this.y += this.jumpVelocity * deltaTime;
 
       // 檢查是否落地
-      if (this.y >= this.jumpAt) { // 假設你定義了地面高度
+      if (this.y >= this.jumpAt) {
         this.y = this.jumpAt!;
         this.isJumping = false;
         this.jumpVelocity = 0;
