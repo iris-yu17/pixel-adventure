@@ -1,6 +1,6 @@
 const SCREEN = {
-  WIDTH: 600,
-  HEIGHT: 360
+  WIDTH: 608,
+  HEIGHT: 368,
 };
 
 const CHARACTER = {
@@ -17,4 +17,11 @@ const PHYSICS = {
   POWER: 20,
 };
 
-export { SPEED, PHYSICS, SCREEN, CHARACTER };
+const TILE = {
+  SIZE: 16,
+  X_COUNT: 38,
+  Y_COUNT: 23,
+};
+
+
+export { SPEED, PHYSICS, SCREEN, CHARACTER, TILE };

@@ -1,5 +1,5 @@
 import { Assets, Texture, AnimatedSprite, Ticker } from 'pixi.js';
-import { app } from './../app';
+import { app } from '../app';
 import { KEY } from '../types/key';
 import { PHYSICS, SPEED, SCREEN, CHARACTER } from '../constants/config';
 
