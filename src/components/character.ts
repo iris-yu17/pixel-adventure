@@ -1,7 +1,7 @@
 import { Assets, Texture, AnimatedSprite, Ticker } from 'pixi.js';
 import { app } from '../app';
 import { KEY } from '../types/key';
-import { PHYSICS, SPEED, SCREEN, CHARACTER } from '../constants/config';
+import { PHYSICS, SPEED, CHARACTER, TILE } from '../constants/config';
 
 enum Action {
   Idle = 'idle',
@@ -31,11 +31,55 @@ class Character {
   isJumping: boolean = false;
   jumpVelocity: number = 0;
 
-  constructor(name: string, x: number, y: number) {
+  constructor(name: string, x: number, y: number, tiles) {
     this.name = name;
     this.x = x;
     this.y = y;
     this.jumpAt = y;
+    this.tiles = tiles;
+  }
+
+  checkCollision(tile) {
+    // 計算角色的實際邊界
+    const charLeft = this.x - CHARACTER.HALF_SIZE + CHARACTER.OFFSET_X;
+    const charRight = this.x + CHARACTER.HALF_SIZE - CHARACTER.OFFSET_X;
+    const charTop = this.y - CHARACTER.HALF_SIZE;
+    const charBottom = this.y + CHARACTER.HALF_SIZE;
+
+    // 計算 tile 的實際邊界
+    const tileLeft = tile.x - TILE.HALF_SIZE;
+    const tileRight = tile.x + TILE.HALF_SIZE;
+    const tileTop = tile.y - TILE.HALF_SIZE;
+    const tileBottom = tile.y + TILE.HALF_SIZE;;
+
+    // 碰撞檢測
+    const rightHit = charRight > tileLeft;
+    const leftHit = charLeft < tileRight;
+    const bottomHit = charBottom > tileTop;
+    const topHit = charTop < tileBottom;
+
+    return rightHit && leftHit && bottomHit && topHit;
+  }
+
+  getBottomTiles(tiles) {
+    const arr = [];
+    for (const tile of tiles) {
+      if (Math.abs(tile.x - this.x) < CHARACTER.HALF_SIZE && tile.y > this.y) {
+        arr.push(tile);
+      }
+    }
+    return arr;
+  }
+
+  // 四周九宮格範圍的 tiles
+  getNearbyTiles() {
+    const arr = [];
+    for (const tile of this.tiles) {
+      if (Math.abs(tile.x - this.x) < CHARACTER.SIZE && Math.abs(tile.y - this.y) < CHARACTER.SIZE) {
+        arr.push(tile);
+      }
+    }
+    return arr;
   }
 
   async init() {
@@ -85,18 +129,17 @@ class Character {
 
   move(delta: Ticker) {
     const { deltaTime } = delta;
+    const nearbyTiles = this.getNearbyTiles();
+
+    this.handleTextureChange();
 
     if (this.pressedKeys.has(KEY.ArrowRight)) {
       this.facingRight = true;
-
-      if (this.x > SCREEN.WIDTH - CHARACTER.SIZE / 2) return;
       this.x += SPEED.CHARACTER_RUN * deltaTime;
     }
 
     if (this.pressedKeys.has(KEY.ArrowLeft)) {
       this.facingRight = false;
-
-      if (this.x < CHARACTER.SIZE / 2) return;
       this.x -= SPEED.CHARACTER_RUN * deltaTime;
     }
 
@@ -106,18 +149,59 @@ class Character {
       this.jumpAt = this.y;
     }
 
+    const bottomTiles = this.getBottomTiles(nearbyTiles);
+    if (bottomTiles.length === 0) {
+      this.isJumping = true;
+      this.jumpAt = TILE.GROUND_BASE_Y;
+    }
+
     if (this.isJumping) {
       // 應用重力
-      this.jumpVelocity += PHYSICS.GRAVITY * deltaTime;
+      this.jumpVelocity += PHYSICS.GRAVITY;
 
       // 更新 Y 坐標
       this.y += this.jumpVelocity * deltaTime;
 
-      // 檢查是否落地
+      // 若落地
       if (this.y >= this.jumpAt) {
-        this.y = this.jumpAt!;
+        this.y = this.jumpAt;
         this.isJumping = false;
         this.jumpVelocity = 0;
+      }
+    }
+
+
+    for (let tile of nearbyTiles) {
+      if (this.checkCollision(tile)) {
+        const overlapX = Math.min(
+          // 角色右邊緣超過 tile 左邊緣的距離
+          this.x + CHARACTER.HALF_SIZE - tile.x + TILE.HALF_SIZE,
+          // tile 右邊緣超過角色左邊緣的距離
+          tile.x + TILE.HALF_SIZE - (this.x - CHARACTER.HALF_SIZE)
+        );
+        const overlapY = Math.min(
+          this.y + CHARACTER.HALF_SIZE - tile.y + TILE.HALF_SIZE,
+          tile.y + TILE.HALF_SIZE - (this.y - CHARACTER.HALF_SIZE)
+        );
+
+        // 判斷碰撞主要發生在水平方向還是垂直方向
+        if (overlapX < overlapY) {
+          // 水平碰撞
+          if (this.x < tile.x) {
+            this.x = tile.x - TILE.HALF_SIZE - CHARACTER.HALF_SIZE;
+          } else {
+            this.x = tile.x + TILE.HALF_SIZE + CHARACTER.HALF_SIZE;
+          }
+        } else {
+          // 垂直碰撞
+          if (this.y < tile.y) {
+            this.y = tile.y - TILE.HALF_SIZE - CHARACTER.HALF_SIZE;
+            this.isJumping = false;
+            this.jumpVelocity = 0;
+          } else {
+            this.y = tile.y + TILE.HALF_SIZE + CHARACTER.HALF_SIZE;
+          }
+        }
       }
     }
 
@@ -138,16 +222,12 @@ class Character {
     if (code === KEY.ArrowRight || code === KEY.ArrowLeft || code === KEY.ArrowUp) {
       this.pressedKeys.add(code as KEY);
     }
-
-    this.handleTextureChange();
   }
 
   onKeyUp(e: KeyboardEvent) {
     const { code } = e;
 
     this.pressedKeys.delete(code as KEY);
-
-    this.handleTextureChange();
   }
 
   addListener() {

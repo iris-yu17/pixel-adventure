@@ -4,7 +4,10 @@ const SCREEN = {
 };
 
 const CHARACTER = {
-  SIZE: 32
+  SIZE: 32,
+  HALF_SIZE: 16,
+  OFFSET_X: 4,
+  OFFSET_Y: 4
 };
 
 const SPEED = {
@@ -13,14 +16,16 @@ const SPEED = {
 };
 
 const PHYSICS = {
-  GRAVITY: 1,
-  POWER: 20,
+  GRAVITY: 0.8,
+  POWER: 12,
 };
 
 const TILE = {
   SIZE: 16,
+  HALF_SIZE: 8,
   X_COUNT: 38,
   Y_COUNT: 23,
+  GROUND_BASE_Y: 336
 };
 
 

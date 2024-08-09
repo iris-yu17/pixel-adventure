@@ -1,7 +1,7 @@
 import { Assets, Sprite, Texture } from "pixi.js";
 import { app } from "../app";
 
-class Material {
+class Tile {
   frameNo: number;
   x: number;
   y: number;
@@ -13,13 +13,14 @@ class Material {
   }
 
   async create() {
-    await Assets.load('/assets/material/material.json');
+    await Assets.load('/assets/tile/tile.json');
 
-    const material = Sprite.from(Texture.from(`${this.frameNo}.png`));
+    const tile = Sprite.from(Texture.from(`${this.frameNo}.png`));
 
-    material.position.set(this.x, this.y);
-    app.stage.addChild(material);
+    tile.position.set(this.x, this.y);
+    tile.anchor.set(0.5, 0.5);
+    app.stage.addChild(tile);
   }
 }
 
-export default Material;
+export default Tile;
