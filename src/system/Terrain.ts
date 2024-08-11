@@ -37,7 +37,7 @@ class Terrain {
     }
   }
 
-  getPlatforms() {
+  getTiles() {
     return this.tiles;
   }
 }

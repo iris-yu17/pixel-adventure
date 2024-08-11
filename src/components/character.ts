@@ -3,6 +3,7 @@ import { app } from '../app';
 import { KEY } from '../types/key';
 import { PHYSICS, SPEED, CHARACTER, TILE } from '../constants/config';
 import { TileType } from '../system/Terrain';
+import Fruit from '../components/Fruit';
 
 enum Action {
   Idle = 'idle',
@@ -32,13 +33,15 @@ class Character {
   isJumping: boolean = false;
   jumpVelocity: number = 0;
   tiles: TileType[] = [];
+  fruits: Fruit[] = [];
 
-  constructor(name: string, x: number, y: number, tiles: TileType[]) {
+  constructor(name: string, x: number, y: number, tiles: TileType[], fruits: Fruit[]) {
     this.name = name;
     this.x = x;
     this.y = y;
     this.jumpAt = y;
     this.tiles = tiles;
+    this.fruits = fruits;
   }
 
   checkCollision(tile: TileType) {
@@ -135,6 +138,7 @@ class Character {
 
     this.handleTextureChange();
 
+    // 方向
     if (this.pressedKeys.has(KEY.ArrowRight)) {
       this.facingRight = true;
       this.x += SPEED.CHARACTER_RUN * deltaTime;
@@ -151,6 +155,7 @@ class Character {
       this.jumpAt = this.y;
     }
 
+    // 碰撞
     for (let tile of nearbyTiles) {
       if (this.checkCollision(tile)) {
         const overlapX = Math.min(
@@ -191,6 +196,7 @@ class Character {
       this.jumpAt = TILE.GROUND_BASE_Y;
     }
 
+    // 跳躍
     if (this.isJumping) {
       // 應用重力
       this.jumpVelocity += PHYSICS.GRAVITY;
@@ -206,8 +212,17 @@ class Character {
       }
     }
 
+    this.cellectFruit();
     this.turnFace();
     this.avatar.position.set(this.x, this.y);
+  }
+
+  cellectFruit() {
+    for (const fruit of this.fruits) {
+      if (this.checkCollision(fruit)) {
+        fruit.collected();
+      }
+    }
   }
 
   switchTexture(action: Action = Action.Idle) {

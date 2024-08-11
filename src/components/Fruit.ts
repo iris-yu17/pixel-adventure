@@ -7,6 +7,12 @@ const FRAME = {
   BUBBLE: 6,
 };
 
+export type FruitType = {
+  name: FRUIT;
+  x: number;
+  y: number;
+};
+
 class Fruit {
   name: string = FRUIT.Apple;
   fruit!: AnimatedSprite;
