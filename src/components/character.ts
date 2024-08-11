@@ -2,6 +2,7 @@ import { Assets, Texture, AnimatedSprite, Ticker } from 'pixi.js';
 import { app } from '../app';
 import { KEY } from '../types/key';
 import { PHYSICS, SPEED, CHARACTER, TILE } from '../constants/config';
+import { TileType } from '../system/Terrain';
 
 enum Action {
   Idle = 'idle',
@@ -30,8 +31,9 @@ class Character {
   ticker: Ticker = new Ticker();
   isJumping: boolean = false;
   jumpVelocity: number = 0;
+  tiles: TileType[] = [];
 
-  constructor(name: string, x: number, y: number, tiles) {
+  constructor(name: string, x: number, y: number, tiles: TileType[]) {
     this.name = name;
     this.x = x;
     this.y = y;
@@ -39,7 +41,7 @@ class Character {
     this.tiles = tiles;
   }
 
-  checkCollision(tile) {
+  checkCollision(tile: TileType) {
     // 計算角色的實際邊界
     const charLeft = this.x - CHARACTER.HALF_SIZE + CHARACTER.OFFSET_X;
     const charRight = this.x + CHARACTER.HALF_SIZE - CHARACTER.OFFSET_X;
@@ -61,7 +63,7 @@ class Character {
     return rightHit && leftHit && bottomHit && topHit;
   }
 
-  getBottomTiles(tiles) {
+  getBottomTiles(tiles: TileType[]) {
     const arr = [];
     for (const tile of tiles) {
       if (Math.abs(tile.x - this.x) < CHARACTER.HALF_SIZE && tile.y > this.y) {

@@ -1,14 +1,14 @@
 import Tile from "../components/Tile";
 import { TILE } from "../constants/config";
 
-type Platform = {
+export type TileType = {
   x: number,
   y: number,
 };
 
 class Terrain {
   map: number[][];
-  platforms: Platform[] = [{ x: 0, y: 0 }];
+  tiles: TileType[] = [{ x: 0, y: 0 }];
 
   constructor(map: number[][]) {
     this.map = map;
@@ -28,7 +28,7 @@ class Terrain {
           tile.create();
 
           // 產生平台資料
-          this.platforms.push({
+          this.tiles.push({
             x: xPosition,
             y: yPosition
           });
@@ -38,7 +38,7 @@ class Terrain {
   }
 
   getPlatforms() {
-    return this.platforms;
+    return this.tiles;
   }
 }
 
