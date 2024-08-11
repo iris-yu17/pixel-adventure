@@ -151,28 +151,6 @@ class Character {
       this.jumpAt = this.y;
     }
 
-    const bottomTiles = this.getBottomTiles(nearbyTiles);
-    if (bottomTiles.length === 0) {
-      this.isJumping = true;
-      this.jumpAt = TILE.GROUND_BASE_Y;
-    }
-
-    if (this.isJumping) {
-      // 應用重力
-      this.jumpVelocity += PHYSICS.GRAVITY;
-
-      // 更新 Y 坐標
-      this.y += this.jumpVelocity * deltaTime;
-
-      // 若落地
-      if (this.y >= this.jumpAt) {
-        this.y = this.jumpAt;
-        this.isJumping = false;
-        this.jumpVelocity = 0;
-      }
-    }
-
-
     for (let tile of nearbyTiles) {
       if (this.checkCollision(tile)) {
         const overlapX = Math.min(
@@ -204,6 +182,27 @@ class Character {
             this.y = tile.y + TILE.HALF_SIZE + CHARACTER.HALF_SIZE;
           }
         }
+      }
+    }
+
+    const bottomTiles = this.getBottomTiles(nearbyTiles);
+    if (bottomTiles.length === 0) {
+      this.isJumping = true;
+      this.jumpAt = TILE.GROUND_BASE_Y;
+    }
+
+    if (this.isJumping) {
+      // 應用重力
+      this.jumpVelocity += PHYSICS.GRAVITY;
+
+      // 更新 Y 坐標
+      this.y += this.jumpVelocity * deltaTime;
+
+      // 若落地
+      if (this.y >= this.jumpAt) {
+        this.y = this.jumpAt;
+        this.isJumping = false;
+        this.jumpVelocity = 0;
       }
     }
 
