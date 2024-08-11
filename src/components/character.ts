@@ -2,13 +2,19 @@ import { Assets, Texture, AnimatedSprite, Ticker } from 'pixi.js';
 import { app } from '../app';
 import { KEY } from '../types/key';
 import { PHYSICS, SPEED, CHARACTER, TILE } from '../constants/config';
-import { TileType } from '../system/Terrain';
+import Tile from './Tile';
 import Fruit from '../components/Fruit';
+import Monster from '../components/Monster';
 
 enum Action {
   Idle = 'idle',
   Run = 'run',
   Jump = 'jump'
+}
+
+enum Direction {
+  Horizontal = 'horizontal',
+  Vertical = 'vertical'
 }
 
 class Character {
@@ -32,41 +38,43 @@ class Character {
   ticker: Ticker = new Ticker();
   isJumping: boolean = false;
   jumpVelocity: number = 0;
-  tiles: TileType[] = [];
+  tiles: Tile[] = [];
   fruits: Fruit[] = [];
+  monsters: Set<Monster> = new Set();
 
-  constructor(name: string, x: number, y: number, tiles: TileType[], fruits: Fruit[]) {
+  constructor(name: string, x: number, y: number, tiles: Tile[], fruits: Fruit[], monsters: Set<Monster>) {
     this.name = name;
     this.x = x;
     this.y = y;
     this.jumpAt = y;
     this.tiles = tiles;
     this.fruits = fruits;
+    this.monsters = monsters;
   }
 
-  checkCollision(tile: TileType) {
+  checkCollision(item: Tile | Fruit | Monster) {
     // 計算角色的實際邊界
     const charLeft = this.x - CHARACTER.HALF_SIZE + CHARACTER.OFFSET_X;
     const charRight = this.x + CHARACTER.HALF_SIZE - CHARACTER.OFFSET_X;
     const charTop = this.y - CHARACTER.HALF_SIZE;
     const charBottom = this.y + CHARACTER.HALF_SIZE;
 
-    // 計算 tile 的實際邊界
-    const tileLeft = tile.x - TILE.HALF_SIZE;
-    const tileRight = tile.x + TILE.HALF_SIZE;
-    const tileTop = tile.y - TILE.HALF_SIZE;
-    const tileBottom = tile.y + TILE.HALF_SIZE;;
+    // 計算 item 的實際邊界
+    const itemLeft = item.getX() - TILE.HALF_SIZE;
+    const itemRight = item.getX() + TILE.HALF_SIZE;
+    const itemTop = item.getY() - TILE.HALF_SIZE;
+    const itemBottom = item.getY() + TILE.HALF_SIZE;
 
     // 碰撞檢測
-    const rightHit = charRight > tileLeft;
-    const leftHit = charLeft < tileRight;
-    const bottomHit = charBottom > tileTop;
-    const topHit = charTop < tileBottom;
+    const rightHit = charRight > itemLeft;
+    const leftHit = charLeft < itemRight;
+    const bottomHit = charBottom > itemTop;
+    const topHit = charTop < itemBottom;
 
     return rightHit && leftHit && bottomHit && topHit;
   }
 
-  getBottomTiles(tiles: TileType[]) {
+  getBottomTiles(tiles: Tile[]) {
     const arr = [];
     for (const tile of tiles) {
       if (Math.abs(tile.x - this.x) < CHARACTER.HALF_SIZE && tile.y > this.y) {
@@ -158,34 +166,25 @@ class Character {
     // 碰撞
     for (let tile of nearbyTiles) {
       if (this.checkCollision(tile)) {
-        const overlapX = Math.min(
-          // 角色右邊緣超過 tile 左邊緣的距離
-          this.x + CHARACTER.HALF_SIZE - tile.x + TILE.HALF_SIZE,
-          // tile 右邊緣超過角色左邊緣的距離
-          tile.x + TILE.HALF_SIZE - (this.x - CHARACTER.HALF_SIZE)
-        );
-        const overlapY = Math.min(
-          this.y + CHARACTER.HALF_SIZE - tile.y + TILE.HALF_SIZE,
-          tile.y + TILE.HALF_SIZE - (this.y - CHARACTER.HALF_SIZE)
-        );
-
-        // 判斷碰撞主要發生在水平方向還是垂直方向
-        if (overlapX < overlapY) {
-          // 水平碰撞
-          if (this.x < tile.x) {
-            this.x = tile.x - TILE.HALF_SIZE - CHARACTER.HALF_SIZE;
-          } else {
-            this.x = tile.x + TILE.HALF_SIZE + CHARACTER.HALF_SIZE;
-          }
-        } else {
-          // 垂直碰撞
-          if (this.y < tile.y) {
-            this.y = tile.y - TILE.HALF_SIZE - CHARACTER.HALF_SIZE;
-            this.isJumping = false;
-            this.jumpVelocity = 0;
-          } else {
-            this.y = tile.y + TILE.HALF_SIZE + CHARACTER.HALF_SIZE;
-          }
+        switch (this.collisionDirection(tile)) {
+          case Direction.Horizontal:
+            if (this.x < tile.x) {
+              this.x = tile.x - TILE.HALF_SIZE - CHARACTER.HALF_SIZE;
+            } else {
+              this.x = tile.x + TILE.HALF_SIZE + CHARACTER.HALF_SIZE;
+            }
+            break;
+          case Direction.Vertical:
+            if (this.y < tile.y) {
+              this.y = tile.y - TILE.HALF_SIZE - CHARACTER.HALF_SIZE;
+              this.isJumping = false;
+              this.jumpVelocity = 0;
+            } else {
+              this.y = tile.y + TILE.HALF_SIZE + CHARACTER.HALF_SIZE;
+            }
+            break;
+          default:
+            break;
         }
       }
     }
@@ -213,6 +212,7 @@ class Character {
     }
 
     this.cellectFruit();
+    this.checkMosterCollision();
     this.turnFace();
     this.avatar.position.set(this.x, this.y);
   }
@@ -221,6 +221,47 @@ class Character {
     for (const fruit of this.fruits) {
       if (this.checkCollision(fruit)) {
         fruit.collected();
+      }
+    }
+  }
+
+  collisionDirection(item: Tile | Fruit | Monster) {
+    const overlapX = Math.min(
+      // 角色右邊緣超過 tile 左邊緣的距離
+      this.x + CHARACTER.HALF_SIZE - item.getX() + TILE.HALF_SIZE,
+      // tile 右邊緣超過角色左邊緣的距離
+      item.getX() + TILE.HALF_SIZE - (this.x - CHARACTER.HALF_SIZE)
+    );
+    const overlapY = Math.min(
+      this.y + CHARACTER.HALF_SIZE - item.getY() + TILE.HALF_SIZE,
+      item.getY() + TILE.HALF_SIZE - (this.y - CHARACTER.HALF_SIZE)
+    );
+
+    return overlapX < overlapY ? Direction.Horizontal : Direction.Vertical;
+  }
+
+  checkMosterCollision() {
+    for (const monster of this.monsters) {
+      if (this.checkCollision(monster)) {
+        switch (this.collisionDirection(monster)) {
+          case Direction.Horizontal:
+            // 輸了
+            break;
+          case Direction.Vertical:
+            // 從上方碰到
+            if (this.y < monster.getY()) {
+              monster.hit();
+              this.monsters.delete(monster);
+            }
+            else {
+              // 輸了
+              this.y = monster.y + TILE.HALF_SIZE + CHARACTER.HALF_SIZE;
+            }
+            break;
+
+          default:
+            break;
+        }
       }
     }
   }

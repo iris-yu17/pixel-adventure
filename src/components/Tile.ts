@@ -5,6 +5,7 @@ class Tile {
   frameNo: number;
   x: number;
   y: number;
+  tile: Sprite;
 
   constructor(frameNo: number, x: number, y: number) {
     this.frameNo = frameNo;
@@ -15,11 +16,19 @@ class Tile {
   async create() {
     await Assets.load('/assets/tile/tile.json');
 
-    const tile = Sprite.from(Texture.from(`${this.frameNo}.png`));
+    this.tile = Sprite.from(Texture.from(`${this.frameNo}.png`));
 
-    tile.position.set(this.x, this.y);
-    tile.anchor.set(0.5, 0.5);
-    app.stage.addChild(tile);
+    this.tile.position.set(this.x, this.y);
+    this.tile.anchor.set(0.5, 0.5);
+    app.stage.addChild(this.tile);
+  }
+
+  getX() {
+    return this.tile.position.x;
+  }
+
+  getY() {
+    return this.tile.position.y;
   }
 }
 

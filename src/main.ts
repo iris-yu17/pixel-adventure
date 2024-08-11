@@ -3,7 +3,9 @@ import Background from './system/Background.js';
 import Terrain from './system/Terrain.js';
 import { level1 } from './constants/map.js';
 import { fruits_lv1 } from './constants/fruit.js';
+import { monster_lv1 } from './constants/monster.js';
 import Fruits from './system/Fruits.js';
+import Monsters from './system/Monsters.js';
 
 const bg = new Background('Gray');
 bg.init();
@@ -16,5 +18,9 @@ const fruitsMap = new Fruits(fruits_lv1);
 fruitsMap.init();
 const fruits = fruitsMap.getFruits();
 
-const blueGuy = new Character('blue-guy', 150, 304, tiles, fruits);
+const monsterMap = new Monsters(monster_lv1);
+monsterMap.init();
+const monsters = monsterMap.getMonsters();
+
+const blueGuy = new Character('blue-guy', 150, 304, tiles, fruits, monsters);
 blueGuy.init();

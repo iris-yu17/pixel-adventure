@@ -73,6 +73,23 @@ class Fruit {
     this.container.addChild(this.bubble);
     this.bubble.play();
     this.bubble.loop = false;
+    setTimeout(() => {
+      this.removeFromStage();
+    }, 500);
+  }
+
+  removeFromStage() {
+    this.container.removeFromParent();
+    this.fruit.destroy();
+    this.bubble.destroy();
+  }
+
+  getX() {
+    return this.container.position.x;
+  }
+
+  getY() {
+    return this.container.position.y;
   }
 }
 

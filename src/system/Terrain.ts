@@ -8,7 +8,7 @@ export type TileType = {
 
 class Terrain {
   map: number[][];
-  tiles: TileType[] = [{ x: 0, y: 0 }];
+  tiles: Tile[] = [];
 
   constructor(map: number[][]) {
     this.map = map;
@@ -28,10 +28,11 @@ class Terrain {
           tile.create();
 
           // 產生平台資料
-          this.tiles.push({
-            x: xPosition,
-            y: yPosition
-          });
+          // this.tiles.push({
+          //   x: xPosition,
+          //   y: yPosition
+          // });
+          this.tiles.push(tile);
         }
       }
     }
