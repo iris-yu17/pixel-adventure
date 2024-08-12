@@ -3,8 +3,9 @@ import { app } from '../app';
 import { KEY } from '../types/key';
 import { PHYSICS, SPEED, CHARACTER, TILE } from '../constants/config';
 import Tile from './Tile';
-import Fruit from '../components/Fruit';
-import Monster from '../components/Monster';
+import Fruit from './Fruit';
+import Monster from './Monster';
+import HealthBar from './HealthBar';
 
 enum Action {
   Idle = 'idle',
@@ -41,8 +42,9 @@ class Character {
   tiles: Tile[] = [];
   fruits: Fruit[] = [];
   monsters: Set<Monster> = new Set();
+  healthbar: HealthBar;
 
-  constructor(name: string, x: number, y: number, tiles: Tile[], fruits: Fruit[], monsters: Set<Monster>) {
+  constructor(name: string, x: number, y: number, tiles: Tile[], fruits: Fruit[], monsters: Set<Monster>, healthbar: HealthBar) {
     this.name = name;
     this.x = x;
     this.y = y;
@@ -50,6 +52,7 @@ class Character {
     this.tiles = tiles;
     this.fruits = fruits;
     this.monsters = monsters;
+    this.healthbar = healthbar;
   }
 
   checkCollision(item: Tile | Fruit | Monster) {
@@ -245,7 +248,6 @@ class Character {
       if (this.checkCollision(monster)) {
         switch (this.collisionDirection(monster)) {
           case Direction.Horizontal:
-            // 輸了
             break;
           case Direction.Vertical:
             // 從上方碰到
@@ -254,7 +256,6 @@ class Character {
               this.monsters.delete(monster);
             }
             else {
-              // 輸了
               this.y = monster.y + TILE.HALF_SIZE + CHARACTER.HALF_SIZE;
             }
             break;

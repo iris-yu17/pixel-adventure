@@ -1,0 +1,61 @@
+import { Sprite, Assets, Container, Texture } from "pixi.js";
+import { app } from "../app";
+import { TILE } from "../constants/config";
+
+enum Display {
+  Heart = 'heart',
+  Empty = 'empty',
+};
+
+class HealthBar {
+  heart: number = 3;
+  container: Container = new Container();
+  display: Display[] = [];
+  heartTexture!: Texture;
+  emptyTexture!: Texture;
+
+  async init() {
+    this.container.position.set(TILE.SIZE * 1.5);
+
+    this.heartTexture = await Assets.load('/assets/healthbar/heart.png');
+    this.emptyTexture = await Assets.load('/assets/healthbar/heart_empty.png');
+
+    this.display = [Display.Heart, Display.Heart, Display.Heart];
+
+    app.stage.addChild(this.container);
+
+    this.renderHeart();
+  }
+
+  renderHeart() {
+    this.container.removeChildren();
+    this.display.forEach((display, index) => {
+      const item = display === Display.Heart ? this.heartTexture : this.emptyTexture;
+
+      const sprite = new Sprite(item);
+
+      sprite.position.set(index * 24, 0);
+      this.container.addChild(sprite);
+    });
+  }
+
+  updateHeart() {
+    this.heart -= 1;
+
+    switch (this.heart) {
+      case 2:
+        this.display = [Display.Heart, Display.Heart, Display.Empty];
+        break;
+      case 1:
+        this.display = [Display.Heart, Display.Empty, Display.Empty];
+        break;
+      case 0:
+        this.display = [Display.Empty, Display.Empty, Display.Empty];
+        break;
+    }
+
+    this.renderHeart();
+  }
+}
+
+export default HealthBar;

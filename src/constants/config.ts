@@ -3,6 +3,11 @@ const SCREEN = {
   HEIGHT: 368,
 };
 
+const TEXT = {
+  WIDTH: 8,
+  HEIGHT: 10
+};
+
 const CHARACTER = {
   SIZE: 32,
   HALF_SIZE: 16,
@@ -29,4 +34,4 @@ const TILE = {
 };
 
 
-export { SPEED, PHYSICS, SCREEN, CHARACTER, TILE };
+export { SPEED, PHYSICS, SCREEN, CHARACTER, TILE, TEXT };

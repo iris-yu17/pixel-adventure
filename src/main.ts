@@ -6,6 +6,7 @@ import { fruits_lv1 } from './constants/fruit.js';
 import { monster_lv1 } from './constants/monster.js';
 import Fruits from './system/Fruits.js';
 import Monsters from './system/Monsters.js';
+import HealthBar from './components/HealthBar';
 
 const bg = new Background('Gray');
 bg.init();
@@ -22,5 +23,9 @@ const monsterMap = new Monsters(monster_lv1);
 monsterMap.init();
 const monsters = monsterMap.getMonsters();
 
-const blueGuy = new Character('blue-guy', 150, 304, tiles, fruits, monsters);
+const healthbar = new HealthBar();
+healthbar.init();
+
+const blueGuy = new Character('blue-guy', 150, 304, tiles, fruits, monsters, healthbar);
 blueGuy.init();
+
