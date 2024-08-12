@@ -7,6 +7,7 @@ import { monster_lv1 } from './constants/monster.js';
 import Fruits from './system/Fruits.js';
 import Monsters from './system/Monsters.js';
 import HealthBar from './components/HealthBar';
+import CheckPoint from './components/CheckPoint.js';
 
 const bg = new Background('Gray');
 bg.init();
@@ -29,3 +30,5 @@ healthbar.init();
 const blueGuy = new Character('blue-guy', 150, 304, tiles, fruits, monsters, healthbar);
 blueGuy.init();
 
+const checkpoint = new CheckPoint();
+checkpoint.init();

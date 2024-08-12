@@ -1,7 +1,7 @@
 import { Assets, Container, AnimatedSprite, Texture, Ticker } from "pixi.js";
 import MONSTER from "../types/monster";
 import { app } from "../app";
-import { SCREEN } from "../constants/config";
+import { SCREEN, Z_INDEX } from "../constants/config";
 
 
 const FRAME = {
@@ -44,6 +44,7 @@ class Monster {
     this.container = new Container();
     this.container.position.set(this.x, this.y);
     this.container.addChild(this.monster);
+    this.container.zIndex = Z_INDEX.MONSTER;
     app.stage.addChild(this.container);
   }
 

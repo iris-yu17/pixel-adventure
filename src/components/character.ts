@@ -1,7 +1,7 @@
 import { Assets, Texture, AnimatedSprite, Ticker } from 'pixi.js';
 import { app } from '../app';
 import { KEY } from '../types/key';
-import { PHYSICS, SPEED, CHARACTER, TILE } from '../constants/config';
+import { PHYSICS, SPEED, CHARACTER, TILE, Z_INDEX } from '../constants/config';
 import Tile from './Tile';
 import Fruit from './Fruit';
 import Monster from './Monster';
@@ -115,6 +115,7 @@ class Character {
     this.avatar.anchor.set(0.5, 0.5);
     this.avatar.loop = true;
     this.avatar.play();
+    this.avatar.zIndex = Z_INDEX.CHARACTER;
 
     app.stage.addChild(this.avatar);
 

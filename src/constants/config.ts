@@ -1,3 +1,10 @@
+const Z_INDEX = {
+  CHECKPOINT: 99,
+  CHARACTER: 100,
+  TILE: 101,
+  MONSTER: 102,
+};
+
 const SCREEN = {
   WIDTH: 608,
   HEIGHT: 368,
@@ -34,4 +41,4 @@ const TILE = {
 };
 
 
-export { SPEED, PHYSICS, SCREEN, CHARACTER, TILE, TEXT };
+export { SPEED, PHYSICS, SCREEN, CHARACTER, TILE, TEXT, Z_INDEX };
