@@ -9,8 +9,9 @@ import Monsters from './system/Monsters.js';
 import HealthBar from './components/HealthBar';
 import CheckPoint from './components/CheckPoint.js';
 import IC from './system/InstanceContainer.js';
+import BackgroundColor from './types/background.js';
 
-const bg = new Background('Gray');
+const bg = new Background(BackgroundColor.Brown);
 bg.init();
 
 const tiles = new Terrain(level1);
@@ -29,7 +30,7 @@ const healthbar = new HealthBar();
 healthbar.init();
 IC.register('healthbar', healthbar);
 
-const blueGuy = new Character('blue-guy', 150, 304);
+const blueGuy = new Character('blue-guy', 10, 304);
 blueGuy.init();
 
 const checkpoint = new CheckPoint();

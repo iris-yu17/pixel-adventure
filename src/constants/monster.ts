@@ -3,27 +3,27 @@ import MONSTER from "../types/monster";
 const monster_lv1 = [
   {
     name: MONSTER.Chicken,
-    x: 5,
-    y: 2,
-    moveRange: 5
+    x: 12,
+    y: 3.5,
+    moveRange: 3
   },
   {
     name: MONSTER.Mushroom,
-    x: 3,
-    y: 5,
-    moveRange: 2
+    x: 6.5,
+    y: 9.5,
+    moveRange: 2.5
+  },
+  {
+    name: MONSTER.Mushroom,
+    x: 2.5,
+    y: 4,
+    moveRange: 1
   },
   {
     name: MONSTER.Bird,
-    x: 8,
-    y: 9,
-    moveRange: 2
-  },
-  {
-    name: MONSTER.Duck,
-    x: 4,
-    y: 8,
-    moveRange: 3
+    x: 13,
+    y: 6,
+    moveRange: 6
   }
 ];
 
