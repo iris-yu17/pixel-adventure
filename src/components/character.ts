@@ -6,7 +6,7 @@ import Tile from './Tile';
 import Fruit from './Fruit';
 import Monster from './Monster';
 import HealthBar from './HealthBar';
-import IC from '../system/InstanceContainer';
+import IC from './InstanceContainer';
 
 enum Action {
   Idle = 'idle',

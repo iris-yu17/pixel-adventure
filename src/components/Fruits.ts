@@ -1,6 +1,6 @@
-import Fruit from "../components/Fruit";
+import Fruit from "./Fruit";
 import { TILE } from "../constants/config";
-import { FruitType } from "../components/Fruit";
+import { FruitType } from "./Fruit";
 import IC from "./InstanceContainer";
 
 class Fruits {

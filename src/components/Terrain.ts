@@ -1,4 +1,4 @@
-import Tile from "../components/Tile";
+import Tile from "./Tile";
 import { TILE } from "../constants/config";
 
 export type TileType = {

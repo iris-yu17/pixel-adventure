@@ -1,7 +1,7 @@
 import FRUIT from "../types/fruit";
 import { Assets, Texture, AnimatedSprite, Container } from "pixi.js";
 import { app } from "../app";
-import IC from "../system/InstanceContainer";
+import IC from "./InstanceContainer";
 
 const FRAME = {
   FRUIT: 17,

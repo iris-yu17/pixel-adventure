@@ -1,14 +1,14 @@
 import Character from './components/Character.js';
-import Background from './system/Background.js';
-import Terrain from './system/Terrain.js';
+import Background from './components/Background.js';
+import Terrain from './components/Terrain.js';
 import { level1 } from './constants/map.js';
 import { fruits_lv1 } from './constants/fruit.js';
 import { monster_lv1 } from './constants/monster.js';
-import Fruits from './system/Fruits.js';
-import Monsters from './system/Monsters.js';
+import Fruits from './components/Fruits.js';
+import Monsters from './components/Monsters.js';
 import HealthBar from './components/HealthBar';
 import CheckPoint from './components/CheckPoint.js';
-import IC from './system/InstanceContainer.js';
+import IC from './components/InstanceContainer.js';
 import BackgroundColor from './types/background.js';
 import { CHARACTER } from './constants/config.js';
 

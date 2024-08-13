@@ -1,4 +1,4 @@
-import Monster from "../components/Monster";
+import Monster from "./Monster";
 import { CHARACTER } from "../constants/config";
 
 class Monsters {
