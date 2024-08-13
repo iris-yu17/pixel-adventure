@@ -1,6 +1,7 @@
 import FRUIT from "../types/fruit";
 import { Assets, Texture, AnimatedSprite, Container } from "pixi.js";
 import { app } from "../app";
+import IC from "../system/InstanceContainer";
 
 const FRAME = {
   FRUIT: 17,
@@ -20,6 +21,7 @@ class Fruit {
   container: Container = new Container();
   x: number;
   y: number;
+  isCollected: boolean = false;
 
   constructor(name: string, x: number, y: number) {
     this.name = name;
@@ -73,23 +75,29 @@ class Fruit {
     this.container.addChild(this.bubble);
     this.bubble.play();
     this.bubble.loop = false;
+
+    if (!this.isCollected) {
+      IC.get('fruits').updateFruitCount( );
+      this.isCollected = true;
+    }
     setTimeout(() => {
       this.removeFromStage();
     }, 500);
   }
 
   removeFromStage() {
-    this.container.removeFromParent();
+    app.stage.removeChild(this.container);
     this.fruit.destroy();
     this.bubble.destroy();
+    this.container.destroy();
   }
 
   getX() {
-    return this.container.position.x;
+    return this.container?.position?.x;
   }
 
   getY() {
-    return this.container.position.y;
+    return this.container?.position?.y;
   }
 }
 

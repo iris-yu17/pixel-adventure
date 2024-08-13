@@ -250,6 +250,8 @@ class Character {
       if (this.checkCollision(monster)) {
         switch (this.collisionDirection(monster)) {
           case Direction.Horizontal:
+            this.x = CHARACTER.INITIAL_X;
+            this.y = CHARACTER.INITIAL_Y;
             this.healthbar.updateHeart();
             break;
           case Direction.Vertical:
@@ -259,8 +261,9 @@ class Character {
               this.monsters.delete(monster);
             }
             else {
+              this.x = CHARACTER.INITIAL_X;
+              this.y = CHARACTER.INITIAL_Y;
               this.healthbar.updateHeart();
-              this.y = monster.y + TILE.HALF_SIZE + CHARACTER.HALF_SIZE;
             }
             break;
 
