@@ -6,6 +6,7 @@ import Tile from './Tile';
 import Fruit from './Fruit';
 import Monster from './Monster';
 import HealthBar from './HealthBar';
+import IC from '../system/InstanceContainer';
 
 enum Action {
   Idle = 'idle',
@@ -44,15 +45,15 @@ class Character {
   monsters: Set<Monster> = new Set();
   healthbar: HealthBar;
 
-  constructor(name: string, x: number, y: number, tiles: Tile[], fruits: Fruit[], monsters: Set<Monster>, healthbar: HealthBar) {
+  constructor(name: string, x: number, y: number) {
     this.name = name;
     this.x = x;
     this.y = y;
     this.jumpAt = y;
-    this.tiles = tiles;
-    this.fruits = fruits;
-    this.monsters = monsters;
-    this.healthbar = healthbar;
+    this.tiles = IC.get('tiles').getTiles();
+    this.fruits = IC.get('fruits').getFruits();
+    this.monsters = IC.get('monsters').getMonsters();
+    this.healthbar = IC.get('healthbar');
   }
 
   checkCollision(item: Tile | Fruit | Monster) {
@@ -249,6 +250,7 @@ class Character {
       if (this.checkCollision(monster)) {
         switch (this.collisionDirection(monster)) {
           case Direction.Horizontal:
+            this.healthbar.updateHeart();
             break;
           case Direction.Vertical:
             // 從上方碰到
@@ -257,6 +259,7 @@ class Character {
               this.monsters.delete(monster);
             }
             else {
+              this.healthbar.updateHeart();
               this.y = monster.y + TILE.HALF_SIZE + CHARACTER.HALF_SIZE;
             }
             break;

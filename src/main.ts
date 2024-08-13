@@ -8,26 +8,28 @@ import Fruits from './system/Fruits.js';
 import Monsters from './system/Monsters.js';
 import HealthBar from './components/HealthBar';
 import CheckPoint from './components/CheckPoint.js';
+import IC from './system/InstanceContainer.js';
 
 const bg = new Background('Gray');
 bg.init();
 
-const map = new Terrain(level1);
-map.init();
-const tiles = map.getTiles();
+const tiles = new Terrain(level1);
+tiles.init();
+IC.register('tiles', tiles);
 
-const fruitsMap = new Fruits(fruits_lv1);
-fruitsMap.init();
-const fruits = fruitsMap.getFruits();
+const fruits = new Fruits(fruits_lv1);
+fruits.init();
+IC.register('fruits', fruits);
 
-const monsterMap = new Monsters(monster_lv1);
-monsterMap.init();
-const monsters = monsterMap.getMonsters();
+const monsters = new Monsters(monster_lv1);
+monsters.init();
+IC.register('monsters', monsters);
 
 const healthbar = new HealthBar();
 healthbar.init();
+IC.register('healthbar', healthbar);
 
-const blueGuy = new Character('blue-guy', 150, 304, tiles, fruits, monsters, healthbar);
+const blueGuy = new Character('blue-guy', 150, 304);
 blueGuy.init();
 
 const checkpoint = new CheckPoint();

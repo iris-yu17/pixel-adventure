@@ -1,6 +1,7 @@
 import { Sprite, Assets, Container, Texture } from "pixi.js";
 import { app } from "../app";
 import { TILE } from "../constants/config";
+import throttle from '../helper/throttle';
 
 enum Display {
   Heart = 'heart',
@@ -13,6 +14,10 @@ class HealthBar {
   display: Display[] = [];
   heartTexture!: Texture;
   emptyTexture!: Texture;
+
+  constructor() {
+    this.updateHeart = throttle(this.updateHeart.bind(this), 500);
+  }
 
   async init() {
     this.container.position.set(TILE.SIZE * 1.5);
