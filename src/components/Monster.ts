@@ -110,9 +110,8 @@ class Monster {
       this.container.rotation += 0.05 * deltaTime;
       if (this.container.y > SCREEN.HEIGHT) {
         ticker.stop();
-        this.container.removeFromParent();
+        this.container.destroy({ children: true, texture: true, textureSource: true, context: true });
         this.monster.destroy();
-        this.monsterHit.destroy();
         this.moveTicker.stop();
       }
     });

@@ -77,7 +77,7 @@ class Fruit {
     this.bubble.loop = false;
 
     if (!this.isCollected) {
-      IC.get('fruits').updateFruitCount( );
+      IC.get('fruits').updateFruitCount();
       this.isCollected = true;
     }
     setTimeout(() => {
@@ -87,9 +87,7 @@ class Fruit {
 
   removeFromStage() {
     app.stage.removeChild(this.container);
-    this.fruit.destroy();
-    this.bubble.destroy();
-    this.container.destroy();
+    this.container.destroy({ children: true, texture: true, textureSource: true, context: true });
   }
 
   getX() {
