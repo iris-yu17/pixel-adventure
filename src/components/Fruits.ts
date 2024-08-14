@@ -36,6 +36,12 @@ class Fruits {
       this.showDestination();
     }
   }
+
+  destroy() {
+    this.fruitsArray.forEach((fruit) => {
+      fruit.destroy();
+    });
+  }
 }
 
 export default Fruits;

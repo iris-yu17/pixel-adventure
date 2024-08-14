@@ -97,6 +97,15 @@ class Fruit {
   getY() {
     return this.container?.position?.y;
   }
+
+  destroy() {
+    this.container.destroy({
+      children: true,
+      texture: true,
+      textureSource: true,
+      context: true
+    });
+  }
 }
 
 export default Fruit;

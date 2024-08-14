@@ -126,6 +126,16 @@ class Monster {
   getY() {
     return this.container.position.y;
   }
+
+  destroy() {
+    this.container.destroy({
+      children: true,
+      texture: true,
+      textureSource: true,
+      context: true
+    });
+    this.moveTicker.destroy()
+  }
 }
 
 export default Monster;

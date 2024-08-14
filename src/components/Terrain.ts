@@ -41,6 +41,12 @@ class Terrain {
   getTiles() {
     return this.tiles;
   }
+
+  destroy() {
+    this.tiles.forEach((tile) => {
+      tile.destroy();
+    });
+  }
 }
 
 export default Terrain;

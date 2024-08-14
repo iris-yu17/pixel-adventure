@@ -21,6 +21,12 @@ class Monsters {
   getMonsters() {
     return this.monsterArray;
   }
+
+  destroy() {
+    this.monsterArray.forEach((monster) => {
+      monster.destroy();
+    });
+  }
 }
 
 export default Monsters;

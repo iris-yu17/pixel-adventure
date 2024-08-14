@@ -44,6 +44,8 @@ class Character {
   fruits: Fruit[] = [];
   monsters: Set<Monster> = new Set();
   healthbar: HealthBar;
+  onKeyDownBound: (this: Window, ev: KeyboardEvent) => any;
+  onKeyUpBound: (this: Window, ev: KeyboardEvent) => any;
 
   constructor(name: string, x: number, y: number) {
     this.name = name;
@@ -54,6 +56,8 @@ class Character {
     this.fruits = IC.get('fruits').getFruits();
     this.monsters = IC.get('monsters').getMonsters();
     this.healthbar = IC.get('healthbar');
+    this.onKeyDownBound = this.onKeyDown.bind(this);
+    this.onKeyUpBound = this.onKeyUp.bind(this);
   }
 
   checkCollision(item: Tile | Fruit | Monster) {
@@ -296,8 +300,13 @@ class Character {
   }
 
   addListener() {
-    window.addEventListener('keydown', this.onKeyDown.bind(this));
-    window.addEventListener('keyup', this.onKeyUp.bind(this));
+    window.addEventListener('keydown', this.onKeyDownBound);
+    window.addEventListener('keyup', this.onKeyUpBound);
+  }
+
+  removeListener() {
+    window.removeEventListener('keydown', this.onKeyDownBound);
+    window.removeEventListener('keyup', this.onKeyUpBound);
   }
 
   createTexture(action: Action, frame: number) {
@@ -306,6 +315,12 @@ class Character {
       textureArray.push(Texture.from(`${action}_${i}.png`));
     }
     this.textures[action] = textureArray;
+  }
+
+  destroy() {
+    this.avatar.destroy();
+    this.ticker.destroy();
+    this.removeListener();
   }
 }
 

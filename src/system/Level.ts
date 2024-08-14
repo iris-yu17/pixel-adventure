@@ -1,5 +1,4 @@
-import { Container } from 'pixi.js';
-import Character from './../components/Character.js';
+import Character from '../components/Character.js';
 import Background from './../components/Background.js';
 import Terrain from './../components/Terrain.js';
 import { map_lv1 } from './../constants/map.js';
@@ -15,10 +14,14 @@ import BackgroundColor from './../types/background.js';
 import { CHARACTER } from './../constants/config.js';
 
 class Level {
-  container: Container;
+  tiles!: Terrain;
+  checkpoint!: CheckPoint;
+  fruits!: Fruits;
+  monsters!: Monsters;
+  healthbar!: HealthBar;
+  character!: Character;
 
   constructor() {
-    this.container = new Container();
   }
 
   init() {
@@ -27,41 +30,42 @@ class Level {
     bg.init();
 
     // 地形
-    const tiles = new Terrain(map_lv1);
-    tiles.init();
-    IC.register('tiles', tiles);
+    this.tiles = new Terrain(map_lv1);
+    this.tiles.init();
+    IC.register('tiles', this.tiles);
 
     // 起終點
-    const checkpoint = new CheckPoint(destination_lv1);
-    checkpoint.init();
-    IC.register('checkpoint', checkpoint);
+    this.checkpoint = new CheckPoint(destination_lv1);
+    this.checkpoint.init();
+    IC.register('checkpoint', this.checkpoint);
 
     // 水果
-    const fruits = new Fruits(fruits_lv1);
-    fruits.init();
-    IC.register('fruits', fruits);
+    this.fruits = new Fruits(fruits_lv1);
+    this.fruits.init();
+    IC.register('fruits', this.fruits);
 
     // 怪物
-    const monsters = new Monsters(monster_lv1);
-    monsters.init();
-    IC.register('monsters', monsters);
+    this.monsters = new Monsters(monster_lv1);
+    this.monsters.init();
+    IC.register('monsters', this.monsters);
 
     // 血條
-    const healthbar = new HealthBar();
-    healthbar.init();
-    IC.register('healthbar', healthbar);
+    this.healthbar = new HealthBar();
+    this.healthbar.init();
+    IC.register('healthbar', this.healthbar);
 
     // 角色
-    const blueGuy = new Character('blue-guy', CHARACTER.INITIAL_X, CHARACTER.INITIAL_Y);
-    blueGuy.init();
-  }
-
-  getContainer() {
-    return this.container;
+    this.character = new Character('blue-guy', CHARACTER.INITIAL_X, CHARACTER.INITIAL_Y);
+    this.character.init();
   }
 
   destroy() {
-    this.container.destroy({ children: true, texture: true, textureSource: true, context: true });
+    this.character.destroy();
+    this.healthbar.destroy();
+    this.monsters.destroy();
+    this.fruits.destroy();
+    this.checkpoint.destroy();
+    this.tiles.destroy();
   }
 }
 

@@ -32,6 +32,10 @@ class Tile {
   getY() {
     return this.tile.position.y;
   }
+
+  destroy() {
+    this.tile.destroy();
+  }
 }
 
 export default Tile;

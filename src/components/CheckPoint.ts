@@ -4,6 +4,7 @@ import { CHECKPOINT, Z_INDEX } from "../constants/config";
 
 class CheckPoint {
   finish: boolean = false;
+  startingPoint!: Sprite;
   destination!: AnimatedSprite;
   destinationPosition: { x: number; y: number; };
 
@@ -27,11 +28,11 @@ class CheckPoint {
 
     // 起點
     const startTexture = await Assets.load('/assets/checkpoint/start.png');
-    const startSprite = new Sprite(startTexture);
-    startSprite.position.set(CHECKPOINT.INITIAL_X, CHECKPOINT.INITIAL_Y);
-    startSprite.zIndex = Z_INDEX.CHECKPOINT;
+    this.startingPoint = new Sprite(startTexture);
+    this.startingPoint.position.set(CHECKPOINT.INITIAL_X, CHECKPOINT.INITIAL_Y);
+    this.startingPoint.zIndex = Z_INDEX.CHECKPOINT;
 
-    app.stage.addChild(startSprite);
+    app.stage.addChild(this.startingPoint);
   }
 
   showFlag() {
@@ -51,6 +52,11 @@ class CheckPoint {
     });
     ticker.speed = 2;
     ticker.start();
+  }
+
+  destroy() {
+    this.startingPoint.destroy();
+    this.destination.destroy();
   }
 }
 

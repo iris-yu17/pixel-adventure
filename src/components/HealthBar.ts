@@ -2,6 +2,7 @@ import { Sprite, Assets, Container, Texture } from "pixi.js";
 import { app } from "../app";
 import { TILE } from "../constants/config";
 import throttle from '../helper/throttle';
+import IC from "./InstanceContainer";
 
 enum Display {
   Heart = 'heart',
@@ -60,6 +61,15 @@ class HealthBar {
     }
 
     this.renderHeart();
+  }
+
+  destroy() {
+    this.container.destroy({
+      children: true,
+      texture: true,
+      textureSource: true,
+      context: true
+    });
   }
 }
 
