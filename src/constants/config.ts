@@ -3,6 +3,7 @@ const Z_INDEX = {
   CHARACTER: 100,
   TILE: 101,
   MONSTER: 102,
+  MASK: 200,
 };
 
 const SCREEN = {
