@@ -48,7 +48,7 @@ class Scene {
     return textArr;
   }
 
-  createText(alphabetArr: ALPHABET[], position?: { x: number, y: number; }) {
+  createText(alphabetArr: ALPHABET[], position?: { x?: number, y?: number; }) {
     const textSpriteArr = this.prepareTextSprite(alphabetArr);
 
     const text = new Container();
@@ -59,11 +59,9 @@ class Scene {
     text.zIndex = Z_INDEX.MASK;
 
     // 預設置中
-    const {
-      x = SCREEN.WIDTH / 2 - text.width / 2, y = SCREEN.HEIGHT / 2 - text.height / 2
-    } = position || {};
-
-    text.position.set(x, y);
+    const _x = position?.x || SCREEN.WIDTH / 2 - text.width / 2;
+    const _y = position?.y || SCREEN.HEIGHT / 2 - text.height / 2;
+    text.position.set(_x, _y);
 
     this.textContainer.addChild(text);
   }
@@ -86,7 +84,8 @@ class Scene {
     ticker.start();
   }
 
-  destroy() {
+  async destroy() {
+    await Assets.unload('/assets/menu/text/text-white.png');
     this.container.destroy({
       children: true,
       texture: true,

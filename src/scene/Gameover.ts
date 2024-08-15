@@ -22,6 +22,32 @@ class Gameover extends Scene {
     ]);
 
     this.animate();
+    this.createRestartBtn();
+  }
+
+  createRestartBtn() {
+    this.createText(
+      [
+        ALPHABET.R,
+        ALPHABET.E,
+        ALPHABET.S,
+        ALPHABET.T,
+        ALPHABET.A,
+        ALPHABET.R,
+        ALPHABET.T,
+      ],
+      {
+        y: 200
+      }
+    );
+    const btn = this.textContainer.children[1];
+    btn.interactive = true;
+    btn.cursor = 'pointer';
+    btn.on('pointerdown', () => {
+      this.destroy();
+
+      // IC.get('level1').init();
+    });
   }
 }
 

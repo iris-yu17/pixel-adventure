@@ -57,13 +57,17 @@ class HealthBar {
         break;
       case 0:
         this.display = [Display.Empty, Display.Empty, Display.Empty];
+        IC.get('level1').destroy();
+        IC.get('gameover').init();
         break;
     }
 
     this.renderHeart();
   }
 
-  destroy() {
+  async destroy() {
+    await Assets.unload('/assets/healthbar/heart.png');
+    await Assets.unload('/assets/healthbar/heart_empty.png');
     this.container.destroy({
       children: true,
       texture: true,
