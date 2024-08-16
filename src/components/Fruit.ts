@@ -2,6 +2,7 @@ import FRUIT from "../types/fruit";
 import { Assets, Texture, AnimatedSprite, Container } from "pixi.js";
 import { app } from "../app";
 import IC from "./InstanceContainer";
+import { Z_INDEX } from "../constants/config";
 
 const FRAME = {
   FRUIT: 17,
@@ -28,7 +29,7 @@ class Fruit {
     this.x = x;
     this.y = y;
   }
-
+// 4 7 10 13 16 19 22 25 28 31 34
   async init() {
     await Assets.load(`/assets/fruits/${this.name}.json`);
     await Assets.load(`/assets/fruits/collected.json`);
@@ -38,6 +39,7 @@ class Fruit {
 
     // create container
     this.container = new Container();
+    this.container.zIndex = Z_INDEX.FRUIT;
     this.container.position.set(this.x, this.y);
     this.container.addChild(this.fruit);
     app.stage.addChild(this.container);

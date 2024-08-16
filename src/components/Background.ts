@@ -6,6 +6,7 @@ import { app } from "../app";
 class Background {
   color: string = 'Gray';
   tilingSprite!: TilingSprite;
+  ticker: Ticker = new Ticker();
 
   constructor(color: string) {
     this.color = color;
@@ -28,12 +29,16 @@ class Background {
   }
 
   animate() {
-    const ticker = new Ticker();
-    ticker.add(({ deltaTime }) => {
+    this.ticker.add(({ deltaTime }) => {
       this.tilingSprite.tilePosition.y += 0.5 * deltaTime;
     });
 
-    ticker.start();
+    this.ticker.start();
+  }
+
+  destroy() {
+    this.tilingSprite.destroy();
+    this.ticker.destroy();
   }
 }
 

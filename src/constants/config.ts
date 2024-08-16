@@ -4,6 +4,7 @@ const Z_INDEX = {
   TILE: 101,
   MONSTER: 102,
   MASK: 200,
+  FRUIT: 103
 };
 
 const SCREEN = {

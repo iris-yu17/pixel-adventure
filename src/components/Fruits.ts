@@ -14,7 +14,7 @@ class Fruits {
     this.fruitCount = map.length;
 
     const checkpoint = IC.get('checkpoint');
-    this.showDestination = checkpoint.showFlag.bind(checkpoint);
+    this.showDestination = checkpoint?.showFlag.bind(checkpoint);
   }
 
   init() {

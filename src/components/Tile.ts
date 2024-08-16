@@ -6,7 +6,7 @@ class Tile {
   frameNo: number;
   x: number;
   y: number;
-  tile: Sprite;
+  tile: Sprite = new Sprite();
 
   constructor(frameNo: number, x: number, y: number) {
     this.frameNo = frameNo;

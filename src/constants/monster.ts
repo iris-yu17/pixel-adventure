@@ -1,5 +1,14 @@
 import MONSTER from "../types/monster";
 
+const monster_opening = [
+  {
+    name: MONSTER.Chicken,
+    x: 9.5,
+    y: 10.5,
+    moveRange: 15
+  },
+];
+
 const monster_lv1 = [
   {
     name: MONSTER.Chicken,
@@ -27,4 +36,4 @@ const monster_lv1 = [
   }
 ];
 
-export { monster_lv1 };
+export { monster_lv1, monster_opening };
