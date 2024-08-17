@@ -7,6 +7,7 @@ import Fruit from './Fruit';
 import Monster from './Monster';
 import HealthBar from './HealthBar';
 import IC from './InstanceContainer';
+import levelRecord from './LevelRecord';
 
 enum Action {
   Idle = 'idle',
@@ -46,6 +47,7 @@ class Character {
   healthbar: HealthBar;
   onKeyDownBound: (this: Window, ev: KeyboardEvent) => any;
   onKeyUpBound: (this: Window, ev: KeyboardEvent) => any;
+  reachDestination: boolean = false;
 
   constructor(name: string, x: number, y: number) {
     this.name = name;
@@ -104,6 +106,7 @@ class Character {
   }
 
   async init() {
+    console.log('init')
     await Assets.load(`/assets/characters/${this.name}/idle.json`);
     await Assets.load(`/assets/characters/${this.name}/run.json`);
     await Assets.load(`/assets/characters/${this.name}/jump.json`);
@@ -228,10 +231,17 @@ class Character {
   }
 
   checkCheckPointCollision() {
+    if (this.reachDestination) return;
     const checkpoint = IC.get('checkpoint');
     const touched = this.checkCollision(checkpoint);
     if (touched) {
+      const currentLevel = levelRecord.getLevel;
+      const nextLevel = currentLevel + 1;
+      levelRecord.setLevel = nextLevel;
       // TODO
+      this.reachDestination = true;
+      IC.get(`level${currentLevel}`).destroy();
+      IC.get(`level${nextLevel}Cutscene`).init();
     }
   }
 

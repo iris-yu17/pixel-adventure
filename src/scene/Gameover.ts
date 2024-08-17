@@ -1,3 +1,5 @@
+import IC from "../components/InstanceContainer";
+import levelRecord from "../components/LevelRecord";
 import Scene from "../system/Scene";
 import ALPHABET from "../types/alphabet";
 
@@ -43,10 +45,12 @@ class Gameover extends Scene {
     const btn = this.textContainer.children[1];
     btn.interactive = true;
     btn.cursor = 'pointer';
-    btn.on('pointerdown', () => {
-      this.destroy();
+    btn.on('pointerdown', async () => {
+      await this.destroy();
+      levelRecord.setLevel = 1;
+      // IC.get('level1').destroy();
 
-      // IC.get('level1').init();
+      IC.get('level1').init();
     });
   }
 }

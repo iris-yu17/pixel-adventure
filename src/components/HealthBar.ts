@@ -3,6 +3,7 @@ import { app } from "../app";
 import { TILE } from "../constants/config";
 import throttle from '../helper/throttle';
 import IC from "./InstanceContainer";
+import levelRecord from "./LevelRecord";
 
 enum Display {
   Heart = 'heart',
@@ -57,7 +58,8 @@ class HealthBar {
         break;
       case 0:
         this.display = [Display.Empty, Display.Empty, Display.Empty];
-        IC.get('level1').destroy();
+        const currentLevel = levelRecord.getLevel;
+        IC.get(`level${currentLevel}`).destroy();
         IC.get('gameover').init();
         break;
     }
