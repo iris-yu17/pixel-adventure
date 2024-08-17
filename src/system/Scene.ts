@@ -84,6 +84,19 @@ class Scene {
     ticker.start();
   }
 
+  fadeOut() {
+    const ticker = new Ticker();
+    ticker.add(async ({ deltaTime }) => {
+      if (this.container.alpha <= 0) {
+        ticker.destroy();
+        await this.destroy();
+        return;
+      }
+      this.container.alpha -= 0.1 * deltaTime;
+    });
+    ticker.start()
+  }
+
   async destroy() {
     await Assets.unload('/assets/menu/text/text-white.png');
     this.container.destroy({

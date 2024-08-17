@@ -58,6 +58,14 @@ class CheckPoint {
     this.startingPoint.destroy();
     this.destination.destroy();
   }
+
+  getX() {
+    return this.destination.position.x;
+  }
+
+  getY() {
+    return this.destination.position.y;
+  }
 }
 
 export default CheckPoint;

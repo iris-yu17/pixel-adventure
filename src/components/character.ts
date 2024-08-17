@@ -223,7 +223,16 @@ class Character {
     this.cellectFruit();
     this.checkMosterCollision();
     this.turnFace();
+    this.checkCheckPointCollision();
     this.avatar.position.set(this.x, this.y);
+  }
+
+  checkCheckPointCollision() {
+    const checkpoint = IC.get('checkpoint');
+    const touched = this.checkCollision(checkpoint);
+    if (touched) {
+      // TODO
+    }
   }
 
   cellectFruit() {

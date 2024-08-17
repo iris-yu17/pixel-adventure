@@ -1,4 +1,4 @@
-import { Assets, Sprite } from "pixi.js";
+import { Assets, Sprite, Ticker } from "pixi.js";
 import Background from "../components/Background";
 import Fruits from "../components/Fruits";
 import Terrain from "../components/Terrain";
@@ -67,16 +67,17 @@ class Opening extends Scene {
 
     btn.interactive = true;
     btn.cursor = 'pointer';
-    btn.on('pointerdown', () => {
-      this.destroy();
-      IC.get('level1').init();
+    btn.on('pointerdown', async () => {
+      await this.destroy();
+      await IC.get('level1Cutscene').init();
     });
 
     this.container.addChild(btn);
   }
 
   async destroy() {
-    super.destroy();
+    await Assets.unload('/assets/menu/button/play.png');
+    await super.destroy();
     this.map.destroy();
     this.bg.destroy();
     this.monsters.destroy();
