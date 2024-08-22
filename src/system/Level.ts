@@ -12,6 +12,7 @@ import CheckPoint from './../components/CheckPoint.js';
 import IC from './../components/InstanceContainer.js';
 import BackgroundColor from './../types/background.js';
 import { CHARACTER } from './../constants/config.js';
+import { app } from '../app.js';
 
 const config = {
   map: {
@@ -95,6 +96,7 @@ class Level {
     this.fruits.destroy();
     this.checkpoint.destroy();
     this.tiles.destroy();
+    app.stage.removeChildren();
   }
 }
 

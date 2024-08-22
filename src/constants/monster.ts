@@ -16,12 +16,12 @@ const monster_lv1 = [
   //   y: 3.5,
   //   moveRange: 3
   // },
-  // {
-  //   name: MONSTER.Mushroom,
-  //   x: 6.5,
-  //   y: 9.5,
-  //   moveRange: 2.5
-  // },
+  {
+    name: MONSTER.Mushroom,
+    x: 6.5,
+    y: 9.5,
+    moveRange: 2.5
+  },
   // {
   //   name: MONSTER.Mushroom,
   //   x: 2.5,

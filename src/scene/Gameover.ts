@@ -1,5 +1,6 @@
 import IC from "../components/InstanceContainer";
 import levelRecord from "../components/LevelRecord";
+import Level from "../system/Level";
 import Scene from "../system/Scene";
 import ALPHABET from "../types/alphabet";
 
@@ -46,11 +47,19 @@ class Gameover extends Scene {
     btn.interactive = true;
     btn.cursor = 'pointer';
     btn.on('pointerdown', async () => {
+      // destroy gameover scene
       await this.destroy();
-      levelRecord.setLevel = 1;
-      // IC.get('level1').destroy();
 
-      IC.get('level1').init();
+      // destroy current level
+      const currentLevel = levelRecord.getLevel;
+      await IC.get(`level${currentLevel}`).destroy();
+
+      // new gameover scene
+      const newGameover = new Gameover();
+      IC.register('gameover', newGameover);
+
+      // this level init
+      IC.get(`level${currentLevel}`).init();
     });
   }
 }

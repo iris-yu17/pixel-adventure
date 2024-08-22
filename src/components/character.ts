@@ -106,7 +106,6 @@ class Character {
   }
 
   async init() {
-    console.log('init')
     await Assets.load(`/assets/characters/${this.name}/idle.json`);
     await Assets.load(`/assets/characters/${this.name}/run.json`);
     await Assets.load(`/assets/characters/${this.name}/jump.json`);
@@ -227,10 +226,10 @@ class Character {
     this.checkMosterCollision();
     this.turnFace();
     this.checkCheckPointCollision();
-    this.avatar.position.set(this.x, this.y);
+    this.avatar?.position?.set(this.x, this.y);
   }
 
-  checkCheckPointCollision() {
+  async checkCheckPointCollision() {
     if (this.reachDestination) return;
     const checkpoint = IC.get('checkpoint');
     const touched = this.checkCollision(checkpoint);
@@ -240,7 +239,7 @@ class Character {
       levelRecord.setLevel = nextLevel;
       // TODO
       this.reachDestination = true;
-      IC.get(`level${currentLevel}`).destroy();
+      await IC.get(`level${currentLevel}`).destroy();
       IC.get(`level${nextLevel}Cutscene`).init();
     }
   }

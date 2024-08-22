@@ -58,8 +58,6 @@ class HealthBar {
         break;
       case 0:
         this.display = [Display.Empty, Display.Empty, Display.Empty];
-        const currentLevel = levelRecord.getLevel;
-        IC.get(`level${currentLevel}`).destroy();
         IC.get('gameover').init();
         break;
     }
