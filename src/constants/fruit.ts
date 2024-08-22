@@ -104,26 +104,11 @@ const fruits_opening = [
 ];
 
 const fruits_lv1 = [
-  // {
-  //   name: FRUIT.Apple,
-  //   x: 9.5,
-  //   y: 10
-  // },
-  // {
-  //   name: FRUIT.Banana,
-  //   x: 14.5,
-  //   y: 12
-  // },
-  // {
-  //   name: FRUIT.Cherry,
-  //   x: 19.5,
-  //   y: 14
-  // },
-  // {
-  //   name: FRUIT.Kiwi,
-  //   x: 24.5,
-  //   y: 16
-  // },
+  {
+    name: FRUIT.Apple,
+    x: 9.5,
+    y: 10
+  },
   {
     name: FRUIT.Strawberry,
     x: 18,
@@ -146,8 +131,28 @@ const fruits_lv1 = [
   },
   {
     name: FRUIT.Melon,
-    x: 35.5,
+    x: 35,
     y: 15
+  },
+  {
+    name: FRUIT.Banana,
+    x: 2.5,
+    y: 6
+  },
+  {
+    name: FRUIT.Pineapple,
+    x: 21.5,
+    y: 7
+  },
+  {
+    name: FRUIT.Pineapple,
+    x: 24.5,
+    y: 7
+  },
+  {
+    name: FRUIT.Pineapple,
+    x: 27.5,
+    y: 7
   },
 ];
 

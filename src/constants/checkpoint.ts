@@ -1,7 +1,6 @@
 const destination_lv1 = {
-  x: 570,
-  // y: 130
-  y: 190
+  x: 554,
+  y: 80
 };
 
 const destination_lv2 = {
