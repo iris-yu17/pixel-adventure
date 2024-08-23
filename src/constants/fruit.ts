@@ -110,6 +110,21 @@ const fruits_lv1 = [
     y: 10
   },
   {
+    name: FRUIT.Apple,
+    x: 14.5,
+    y: 12
+  },
+  {
+    name: FRUIT.Apple,
+    x: 19.5,
+    y: 14
+  },
+  {
+    name: FRUIT.Apple,
+    x: 24.5,
+    y: 16
+  },
+  {
     name: FRUIT.Strawberry,
     x: 18,
     y: 21
@@ -142,25 +157,120 @@ const fruits_lv1 = [
   {
     name: FRUIT.Pineapple,
     x: 21.5,
-    y: 7
+    y: 5
   },
   {
     name: FRUIT.Pineapple,
     x: 24.5,
-    y: 7
+    y: 5
   },
   {
     name: FRUIT.Pineapple,
     x: 27.5,
-    y: 7
+    y: 5
   },
 ];
 
 const fruits_lv2 = [
   {
     name: FRUIT.Apple,
-    x: 9.5,
-    y: 10
+    x: 27,
+    y: 15
+  },
+  {
+    name: FRUIT.Apple,
+    x: 30,
+    y: 15
+  },
+  {
+    name: FRUIT.Apple,
+    x: 33,
+    y: 15
+  },
+  {
+    name: FRUIT.Apple,
+    x: 28.5,
+    y: 17
+  },
+  {
+    name: FRUIT.Apple,
+    x: 31.5,
+    y: 17
+  },
+  {
+    name: FRUIT.Orange,
+    x: 27,
+    y: 3
+  },
+  {
+    name: FRUIT.Orange,
+    x: 29.5,
+    y: 3
+  },
+  {
+    name: FRUIT.Orange,
+    x: 32,
+    y: 3
+  },
+  {
+    name: FRUIT.Orange,
+    x: 34.5,
+    y: 3
+  },
+  {
+    name: FRUIT.Orange,
+    x: 27,
+    y: 5
+  },
+  {
+    name: FRUIT.Orange,
+    x: 29.5,
+    y: 5
+  },
+  {
+    name: FRUIT.Orange,
+    x: 32,
+    y: 5
+  },
+  {
+    name: FRUIT.Orange,
+    x: 34.5,
+    y: 5
+  },
+  {
+    name: FRUIT.Kiwi,
+    x: 15,
+    y: 7
+  },
+  {
+    name: FRUIT.Kiwi,
+    x: 18,
+    y: 7
+  },
+  {
+    name: FRUIT.Kiwi,
+    x: 21,
+    y: 7
+  },
+  {
+    name: FRUIT.Kiwi,
+    x: 15,
+    y: 9
+  },
+  {
+    name: FRUIT.Kiwi,
+    x: 18,
+    y: 9
+  },
+  {
+    name: FRUIT.Kiwi,
+    x: 21,
+    y: 9
+  },
+  {
+    name: FRUIT.Melon,
+    x: 24,
+    y: 5
   },
 ];
 

@@ -4,8 +4,8 @@ const destination_lv1 = {
 };
 
 const destination_lv2 = {
-  x: 570,
-  y: 190
+  x: 180,
+  y: 80
 };
 
 const destination_lv3 = {
