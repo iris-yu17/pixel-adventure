@@ -14,13 +14,13 @@ const monster_lv1 = [
     name: MONSTER.Chicken,
     x: 12.25,
     y: 3.5,
-    moveRange: 3
+    moveRange: 3.5,
   },
   {
     name: MONSTER.Mushroom,
     x: 6.5,
     y: 9.5,
-    moveRange: 2.5
+    moveRange: 2.5,
   },
 ];
 

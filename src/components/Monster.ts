@@ -62,7 +62,7 @@ class Monster {
 
     this.container.addChild(this.monster);
     this.move();
-    this.trunFace();
+    this.turnFace();
   }
 
   createHitSprite() {
@@ -83,14 +83,15 @@ class Monster {
       this.container.x += 1 * direction * deltaTime;
       this.movedPixels += 1 * direction * deltaTime;
 
-      if (this.movedPixels >= this.moveRange / 2 || this.movedPixels <= -this.moveRange / 2) {
-        this.trunFace();
+      if (Math.floor(this.movedPixels) >= this.moveRange / 2 || Math.floor(this.movedPixels) <= -this.moveRange / 2) {
+        this.turnFace();
+        // this.movedPixels = 0;
       }
     });
     this.moveTicker.start();
   }
 
-  trunFace() {
+  turnFace() {
     this.monster.scale.x = this.facingRight ? 1 : -1;
     this.facingRight = !this.facingRight;
   }
@@ -134,7 +135,7 @@ class Monster {
       textureSource: true,
       context: true
     });
-    this.moveTicker.destroy()
+    this.moveTicker.destroy();
   }
 }
 
