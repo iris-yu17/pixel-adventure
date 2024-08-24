@@ -275,7 +275,11 @@ const fruits_lv2 = [
 ];
 
 const fruits_lv3 = [
-
+  {
+    name: FRUIT.Melon,
+    x: 24,
+    y: 5
+  },
 ];
 
 export { fruits_lv1, fruits_opening, fruits_lv2, fruits_lv3 };

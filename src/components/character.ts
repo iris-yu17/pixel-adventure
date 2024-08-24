@@ -8,6 +8,7 @@ import Monster from './Monster';
 import HealthBar from './HealthBar';
 import IC from './InstanceContainer';
 import levelRecord from './LevelRecord';
+import IcEnum from '../types/instanceContainer';
 
 enum Action {
   Idle = 'idle',
@@ -54,10 +55,10 @@ class Character {
     this.x = x;
     this.y = y;
     this.jumpAt = y;
-    this.tiles = IC.get('tiles').getTiles();
-    this.fruits = IC.get('fruits').getFruits();
-    this.monsters = IC.get('monsters').getMonsters();
-    this.healthbar = IC.get('healthbar');
+    this.tiles = IC.get(IcEnum.Tiles).getTiles();
+    this.fruits = IC.get(IcEnum.Fruits).getFruits();
+    this.monsters = IC.get(IcEnum.Monsters).getMonsters();
+    this.healthbar = IC.get(IcEnum.HealthBar);
     this.onKeyDownBound = this.onKeyDown.bind(this);
     this.onKeyUpBound = this.onKeyUp.bind(this);
   }
@@ -231,7 +232,7 @@ class Character {
 
   async checkCheckPointCollision() {
     if (this.reachDestination) return;
-    const checkpoint = IC.get('checkpoint');
+    const checkpoint = IC.get(IcEnum.Checkpoint);
     const touched = this.checkCollision(checkpoint);
     if (touched) {
       const currentLevel = levelRecord.getLevel;
@@ -239,8 +240,8 @@ class Character {
       levelRecord.setLevel = nextLevel;
       // TODO
       this.reachDestination = true;
-      await IC.get(`level${currentLevel}`).destroy();
-      IC.get(`level${nextLevel}Cutscene`).init();
+      await IC.get(`level${currentLevel}` as IcEnum).destroy();
+      IC.get(`level${nextLevel}Cutscene` as IcEnum).init();
     }
   }
 

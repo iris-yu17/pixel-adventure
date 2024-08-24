@@ -1,4 +1,4 @@
-import { Assets, Sprite, Ticker } from "pixi.js";
+import { Assets, Sprite } from "pixi.js";
 import Background from "../components/Background";
 import Fruits from "../components/Fruits";
 import Terrain from "../components/Terrain";
@@ -11,6 +11,7 @@ import { SCREEN } from "../constants/config";
 import Monsters from "../components/Monsters";
 import { monster_opening } from "../constants/monster";
 import IC from "../components/InstanceContainer";
+import IcEnum from "../types/instanceContainer";
 
 class Opening extends Scene {
   bg: Background = new Background(BackgroundColor.Green);
@@ -69,7 +70,7 @@ class Opening extends Scene {
     btn.cursor = 'pointer';
     btn.on('pointerdown', async () => {
       await this.destroy();
-      await IC.get('level1Cutscene').init();
+      await IC.get(IcEnum.Level1Cutscene).init();
     });
 
     this.container.addChild(btn);

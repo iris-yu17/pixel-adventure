@@ -3,7 +3,7 @@ import { app } from "../app";
 import { TILE } from "../constants/config";
 import throttle from '../helper/throttle';
 import IC from "./InstanceContainer";
-import levelRecord from "./LevelRecord";
+import IcEnum from "../types/instanceContainer";
 
 enum Display {
   Heart = 'heart',
@@ -58,7 +58,7 @@ class HealthBar {
         break;
       case 0:
         this.display = [Display.Empty, Display.Empty, Display.Empty];
-        IC.get('gameover').init();
+        IC.get(IcEnum.Gameover).init();
         break;
     }
 

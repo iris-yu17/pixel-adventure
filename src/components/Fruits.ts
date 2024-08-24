@@ -2,6 +2,7 @@ import Fruit from "./Fruit";
 import { TILE } from "../constants/config";
 import { FruitType } from "./Fruit";
 import IC from "./InstanceContainer";
+import IcEnum from "../types/instanceContainer";
 
 class Fruits {
   map: FruitType[];
@@ -13,7 +14,7 @@ class Fruits {
     this.map = map;
     this.fruitCount = map.length;
 
-    const checkpoint = IC.get('checkpoint');
+    const checkpoint = IC.get(IcEnum.Checkpoint);
     this.showDestination = checkpoint?.showFlag.bind(checkpoint);
   }
 

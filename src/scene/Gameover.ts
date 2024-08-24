@@ -1,8 +1,8 @@
 import IC from "../components/InstanceContainer";
 import levelRecord from "../components/LevelRecord";
-import Level from "../system/Level";
 import Scene from "../system/Scene";
 import ALPHABET from "../types/alphabet";
+import IcEnum from "../types/instanceContainer";
 
 class Gameover extends Scene {
   constructor() {
@@ -52,14 +52,14 @@ class Gameover extends Scene {
 
       // destroy current level
       const currentLevel = levelRecord.getLevel;
-      await IC.get(`level${currentLevel}`).destroy();
+      await IC.get(`level${currentLevel}` as IcEnum).destroy();
 
       // new gameover scene
       const newGameover = new Gameover();
-      IC.register('gameover', newGameover);
+      IC.register(IcEnum.Gameover, newGameover);
 
       // this level init
-      IC.get(`level${currentLevel}`).init();
+      IC.get(`level${currentLevel}` as IcEnum).init();
     });
   }
 }

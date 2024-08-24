@@ -1,11 +1,19 @@
 import Monster from "./Monster";
 import { CHARACTER } from "../constants/config";
+import MONSTER from "../types/monster";
+
+type MonsterType = {
+  name: MONSTER,
+  x: number,
+  y: number,
+  moveRange: number;
+};
 
 class Monsters {
-  // map: FruitType[];
+  map: MonsterType[];
   monsterArray: Set<Monster> = new Set();
 
-  constructor(map) {
+  constructor(map: MonsterType[]) {
     this.map = map;
   }
 

@@ -13,8 +13,18 @@ import IC from './../components/InstanceContainer.js';
 import BackgroundColor from './../types/background.js';
 import { CHARACTER } from './../constants/config.js';
 import { app } from '../app.js';
+import IcEnum from '../types/instanceContainer.js';
 
-const config = {
+type LevelConfig<T> = {
+  [key: string]: T;
+};
+
+type GameConfig = {
+  [key: string]: LevelConfig<any>;
+};
+
+
+const config: GameConfig = {
   map: {
     lv1: map_lv1,
     lv2: map_lv2,
@@ -62,27 +72,27 @@ class Level {
     // 地形
     this.tiles = new Terrain(config.map[`lv${this.level}`]);
     this.tiles.init();
-    IC.register('tiles', this.tiles);
+    IC.register(IcEnum.Tiles, this.tiles);
 
     // 起終點
     this.checkpoint = new CheckPoint(config.destination[`lv${this.level}`]);
     this.checkpoint.init();
-    IC.register('checkpoint', this.checkpoint);
+    IC.register(IcEnum.Checkpoint, this.checkpoint);
 
     // 水果
     this.fruits = new Fruits(config.fruits[`lv${this.level}`]);
     this.fruits.init();
-    IC.register('fruits', this.fruits);
+    IC.register(IcEnum.Fruits, this.fruits);
 
     // 怪物
     this.monsters = new Monsters(config.monster[`lv${this.level}`]);
     this.monsters.init();
-    IC.register('monsters', this.monsters);
+    IC.register(IcEnum.Monsters, this.monsters);
 
     // 血條
     this.healthbar = new HealthBar();
     this.healthbar.init();
-    IC.register('healthbar', this.healthbar);
+    IC.register(IcEnum.HealthBar, this.healthbar);
 
     // 角色
     this.character = new Character('blue-guy', CHARACTER.INITIAL_X, CHARACTER.INITIAL_Y);

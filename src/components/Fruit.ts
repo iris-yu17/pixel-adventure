@@ -3,6 +3,7 @@ import { Assets, Texture, AnimatedSprite, Container } from "pixi.js";
 import { app } from "../app";
 import IC from "./InstanceContainer";
 import { Z_INDEX } from "../constants/config";
+import IcEnum from "../types/instanceContainer";
 
 const FRAME = {
   FRUIT: 17,
@@ -79,7 +80,7 @@ class Fruit {
     this.bubble.loop = false;
 
     if (!this.isCollected) {
-      IC.get('fruits').updateFruitCount();
+      IC.get(IcEnum.Fruits).updateFruitCount();
       this.isCollected = true;
     }
     setTimeout(() => {

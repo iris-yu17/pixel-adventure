@@ -1,3 +1,5 @@
+import IcEnum from "../types/instanceContainer";
+
 class InstanceContainer {
   dependencies: { [key: string]: any; };
 
@@ -5,11 +7,11 @@ class InstanceContainer {
     this.dependencies = {};
   }
 
-  register(key: string, instance: any) {
+  register(key: IcEnum, instance: any) {
     this.dependencies[key] = instance;
   }
 
-  get(key: string) {
+  get(key: IcEnum) {
     return this.dependencies[key];
   }
 }

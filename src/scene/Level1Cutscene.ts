@@ -1,6 +1,7 @@
 import IC from "../components/InstanceContainer";
 import Scene from "../system/Scene";
 import ALPHABET from "../types/alphabet";
+import IcEnum from "../types/instanceContainer";
 
 class Level1Cutscene extends Scene {
   constructor() {
@@ -25,7 +26,7 @@ class Level1Cutscene extends Scene {
     this.animate();
 
     setTimeout(async () => {
-      IC.get('level1').init();
+      IC.get(IcEnum.Level1).init();
       await super.fadeOut();
     }, 2000);
   }
