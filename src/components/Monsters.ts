@@ -17,13 +17,14 @@ class Monsters {
     this.map = map;
   }
 
-  init() {
-    for (const item of this.map) {
-      const { name, x, y, moveRange } = item;
+  async init() {
+    const monsterPromises = this.map.map(({ name, x, y, moveRange }) => {
       const monster = new Monster(name, x * CHARACTER.SIZE, y * CHARACTER.SIZE, moveRange * CHARACTER.SIZE);
       this.monsterArray.add(monster);
-      monster.init();
-    }
+      return monster.init();
+    });
+
+    await Promise.all(monsterPromises);
   }
 
   getMonsters() {

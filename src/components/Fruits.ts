@@ -18,13 +18,14 @@ class Fruits {
     this.showDestination = checkpoint?.showFlag.bind(checkpoint);
   }
 
-  init() {
-    for (const item of this.map) {
-      const { name, x, y } = item;
+  async init() {
+    const fruitPromises = this.map.map(({ name, x, y }) => {
       const fruit = new Fruit(name, x * TILE.SIZE, y * TILE.SIZE);
       this.fruitsArray.push(fruit);
-      fruit.init();
-    }
+      return fruit.init();
+    });
+
+    await Promise.all(fruitPromises);
   }
 
   getFruits() {

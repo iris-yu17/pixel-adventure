@@ -14,28 +14,24 @@ class Terrain {
     this.map = map;
   }
 
-  init() {
+  async init() {
+    const tilePromises = [];
+
     for (let y = 0; y < this.map.length; y++) {
       for (let x = 0; x < this.map[y].length; x++) {
         const frameNo = this.map[y][x];
 
-        const xPosition = TILE.SIZE / 2 + x * TILE.SIZE;
-        const yPosition = TILE.SIZE / 2 + y * TILE.SIZE;
-
         if (frameNo !== 0) {
-          // render 地形
-          const tile = new Tile(frameNo, xPosition, yPosition);
-          tile.create();
+          const xPosition = TILE.SIZE / 2 + x * TILE.SIZE;
+          const yPosition = TILE.SIZE / 2 + y * TILE.SIZE;
 
-          // 產生平台資料
-          // this.tiles.push({
-          //   x: xPosition,
-          //   y: yPosition
-          // });
-          this.tiles.push(tile);
+          const tile = new Tile(frameNo, xPosition, yPosition);
+          tilePromises.push(tile.create().then(() => this.tiles.push(tile)));
         }
       }
     }
+
+    await Promise.all(tilePromises);
   }
 
   getTiles() {

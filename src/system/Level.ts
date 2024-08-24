@@ -64,39 +64,39 @@ class Level {
     this.level = level;
   }
 
-  init() {
+  async init() {
     // bg
     const bg = new Background(config.background[`lv${this.level}`]);
-    bg.init();
+    await bg.init();
 
     // 地形
     this.tiles = new Terrain(config.map[`lv${this.level}`]);
-    this.tiles.init();
+    await this.tiles.init();
     IC.register(IcEnum.Tiles, this.tiles);
 
     // 起終點
     this.checkpoint = new CheckPoint(config.destination[`lv${this.level}`]);
-    this.checkpoint.init();
+    await this.checkpoint.init();
     IC.register(IcEnum.Checkpoint, this.checkpoint);
 
     // 水果
     this.fruits = new Fruits(config.fruits[`lv${this.level}`]);
-    this.fruits.init();
+    await this.fruits.init();
     IC.register(IcEnum.Fruits, this.fruits);
 
     // 怪物
     this.monsters = new Monsters(config.monster[`lv${this.level}`]);
-    this.monsters.init();
+    await this.monsters.init();
     IC.register(IcEnum.Monsters, this.monsters);
 
     // 血條
     this.healthbar = new HealthBar();
-    this.healthbar.init();
+    await this.healthbar.init();
     IC.register(IcEnum.HealthBar, this.healthbar);
 
     // 角色
     this.character = new Character('blue-guy', CHARACTER.INITIAL_X, CHARACTER.INITIAL_Y);
-    this.character.init();
+    await this.character.init();
   }
 
   destroy() {
