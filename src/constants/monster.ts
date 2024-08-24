@@ -18,7 +18,7 @@ const monster_lv1 = [
   },
   {
     name: MONSTER.Mushroom,
-    x: 6.5,
+    x: 6.25,
     y: 9.5,
     moveRange: 2.5,
   },

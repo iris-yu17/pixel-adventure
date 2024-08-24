@@ -83,9 +83,12 @@ class Monster {
       this.container.x += 1 * direction * deltaTime;
       this.movedPixels += 1 * direction * deltaTime;
 
-      if (Math.floor(this.movedPixels) >= this.moveRange / 2 || Math.floor(this.movedPixels) <= -this.moveRange / 2) {
+      if (this.movedPixels > this.moveRange / 2) {
+        this.movedPixels = this.moveRange / 2;
         this.turnFace();
-        // this.movedPixels = 0;
+      } else if (this.movedPixels < -this.moveRange / 2) {
+        this.movedPixels = -this.moveRange / 2;
+        this.turnFace();
       }
     });
     this.moveTicker.start();
