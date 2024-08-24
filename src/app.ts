@@ -8,7 +8,7 @@ const app = new Application();
   await app.init({ background: '#1099bb', width: SCREEN.WIDTH, height: SCREEN.HEIGHT });
 
   // 放到 DOM 裡面
-  document.querySelector('#app')?.appendChild(app.canvas);
+  document.querySelector('#screen')?.appendChild(app.canvas);
 })();
 
 export { app };
