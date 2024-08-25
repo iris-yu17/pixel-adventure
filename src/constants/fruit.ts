@@ -276,9 +276,44 @@ const fruits_lv2 = [
 
 const fruits_lv3 = [
   {
+    name: FRUIT.Cherry,
+    x: 4,
+    y: 13
+  },
+  {
+    name: FRUIT.Kiwi,
+    x: 7,
+    y: 13
+  },
+  {
+    name: FRUIT.Cherry,
+    x: 10,
+    y: 13
+  },
+  {
+    name: FRUIT.Kiwi,
+    x: 13,
+    y: 13
+  },
+  {
+    name: FRUIT.Strawberry,
+    x: 2,
+    y: 9
+  },
+  {
+    name: FRUIT.Banana,
+    x: 33,
+    y: 7
+  },
+  {
     name: FRUIT.Melon,
-    x: 24,
-    y: 5
+    x: 22,
+    y: 17.5
+  },
+  {
+    name: FRUIT.Melon,
+    x: 22,
+    y: 19.5
   },
 ];
 

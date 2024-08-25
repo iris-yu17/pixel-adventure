@@ -16,10 +16,10 @@ IC.register(IcEnum.Level2, level2);
 const level3 = new Level(3);
 IC.register(IcEnum.Level3, level3);
 
-level1.init();
+// level1.init();
 
 const opening = new Opening();
-// opening.init();
+opening.init();
 IC.register(IcEnum.Opening, opening);
 
 const gameover = new Gameover();

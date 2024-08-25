@@ -9,8 +9,8 @@ const destination_lv2 = {
 };
 
 const destination_lv3 = {
-  x: 570,
-  y: 190
+  x: 310,
+  y: 46
 };
 
 export { destination_lv1, destination_lv2, destination_lv3 };

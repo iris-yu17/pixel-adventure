@@ -48,9 +48,21 @@ const monster_lv2 = [
 const monster_lv3 = [
   {
     name: MONSTER.Mushroom,
-    x: 6.5,
-    y: 9.5,
+    x: 14.5,
+    y: 10,
+    moveRange: 6
+  },
+  {
+    name: MONSTER.Chicken,
+    x: 4.75,
+    y: 3,
     moveRange: 3
+  },
+  {
+    name: MONSTER.Bird,
+    x: 15,
+    y: 6.5,
+    moveRange: 5
   },
 ];
 
