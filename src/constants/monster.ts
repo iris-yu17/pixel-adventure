@@ -3,9 +3,9 @@ import MONSTER from "../types/monster";
 const monster_opening = [
   {
     name: MONSTER.Chicken,
-    x: 9.5,
-    y: 10.5,
-    moveRange: 15
+    x: 11.25,
+    y: 9,
+    moveRange: 3
   },
 ];
 

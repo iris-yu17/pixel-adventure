@@ -5,19 +5,20 @@ import Terrain from "../components/Terrain";
 import { fruits_opening } from "../constants/fruit";
 import { map_opening } from "../constants/map";
 import Scene from "../system/Scene";
-import ALPHABET from "../types/alphabet";
 import BackgroundColor from "../types/background";
 import { SCREEN } from "../constants/config";
 import Monsters from "../components/Monsters";
 import { monster_opening } from "../constants/monster";
 import IC from "../components/InstanceContainer";
 import IcEnum from "../types/instanceContainer";
+import { app } from "../app";
 
 class Opening extends Scene {
-  bg: Background = new Background(BackgroundColor.Green);
+  bg: Background = new Background(BackgroundColor.Gray);
   map: Terrain = new Terrain(map_opening);
   fruits: Fruits = new Fruits(fruits_opening);
   monsters: Monsters = new Monsters(monster_opening);
+  checkpoint;
 
   constructor() {
     super();
@@ -26,37 +27,19 @@ class Opening extends Scene {
   async init() {
     await super.init();
 
-    this.createText([
-      ALPHABET.P,
-      ALPHABET.I,
-      ALPHABET.X,
-      ALPHABET.E,
-      ALPHABET.L,
-    ], {
-      y: 100
-    });
-    this.createText([
-      ALPHABET.A,
-      ALPHABET.D,
-      ALPHABET.V,
-      ALPHABET.E,
-      ALPHABET.N,
-      ALPHABET.T,
-      ALPHABET.U,
-      ALPHABET.R,
-      ALPHABET.E,
-    ], {
-      y: 130
-    });
-
-    this.textContainer.alpha = 1;
-    this.container.addChild(this.textContainer);
-
     this.bg.init();
     this.map.init();
     this.fruits.init();
     this.monsters.init();
     this.createStartButton();
+    this.createCheckpoint();
+  }
+
+  async createCheckpoint() {
+    const startTexture = await Assets.load('/assets/checkpoint/start.png');
+    this.checkpoint = new Sprite(startTexture);
+    this.checkpoint.position.set(500, 144);
+    app.stage.addChild(this.checkpoint);
   }
 
   async createStartButton() {
@@ -83,6 +66,7 @@ class Opening extends Scene {
     this.bg.destroy();
     this.monsters.destroy();
     this.fruits.destroy();
+    this.checkpoint.destroy();
   }
 }
 
