@@ -7,6 +7,7 @@ enum IcEnum {
   Level3Cutscene = 'level3Cutscene',
   Gameover = 'gameover',
   Opening = 'opening',
+  Win = 'win',
   Tiles = 'tiles',
   Fruits = 'fruits',
   Monsters = 'monsters',

@@ -28,6 +28,9 @@ class Level1Cutscene extends Scene {
     setTimeout(async () => {
       IC.get(IcEnum.Level1).init();
       await super.fadeOut();
+
+      const newCutscene = new Level1Cutscene();
+      IC.register(IcEnum.Level1Cutscene, newCutscene);
     }, 2000);
   }
 }

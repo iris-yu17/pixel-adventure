@@ -6,6 +6,7 @@ import Level1Cutscene from "./scene/Level1Cutscene";
 import Level2Cutscene from "./scene/Level2Cutscene";
 import Level3Cutscene from "./scene/Level3Cutscene";
 import IcEnum from "./types/instanceContainer";
+import Win from "./scene/Win";
 
 const level1 = new Level(1);
 IC.register(IcEnum.Level1, level1);
@@ -24,6 +25,9 @@ IC.register(IcEnum.Opening, opening);
 
 const gameover = new Gameover();
 IC.register(IcEnum.Gameover, gameover);
+
+const win = new Win();
+IC.register(IcEnum.Win, win);
 
 const level1Cutscene = new Level1Cutscene();
 IC.register(IcEnum.Level1Cutscene, level1Cutscene);

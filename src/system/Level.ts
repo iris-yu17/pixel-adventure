@@ -46,9 +46,9 @@ const config: GameConfig = {
     lv3: destination_lv3,
   },
   background: {
-    lv1: BackgroundColor.Brown,
-    lv2: BackgroundColor.Purple,
-    lv3: BackgroundColor.Blue,
+    lv1: BackgroundColor.Green,
+    lv2: BackgroundColor.Brown,
+    lv3: BackgroundColor.Purple,
   }
 };
 class Level {

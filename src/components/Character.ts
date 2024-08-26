@@ -238,9 +238,15 @@ class Character {
       const currentLevel = levelRecord.getLevel;
       const nextLevel = currentLevel + 1;
       levelRecord.setLevel = nextLevel;
-      // TODO
       this.reachDestination = true;
       await IC.get(`level${currentLevel}` as IcEnum).destroy();
+
+      if (currentLevel === 3) {
+        levelRecord.setLevel = 1;
+        IC.get(IcEnum.Win).init();
+        return;
+      }
+
       IC.get(`level${nextLevel}Cutscene` as IcEnum).init();
     }
   }
