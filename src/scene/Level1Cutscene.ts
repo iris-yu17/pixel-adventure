@@ -2,6 +2,9 @@ import IC from "../components/InstanceContainer";
 import Scene from "../system/Scene";
 import ALPHABET from "../types/alphabet";
 import IcEnum from "../types/instanceContainer";
+import Loader from "../system/Loader";
+
+const loader = new Loader();
 
 class Level1Cutscene extends Scene {
   constructor() {
@@ -10,6 +13,7 @@ class Level1Cutscene extends Scene {
 
   async init() {
     await super.init();
+    await loader.init();
 
     this.createText([
       ALPHABET.L,
@@ -26,8 +30,9 @@ class Level1Cutscene extends Scene {
     this.animate();
 
     setTimeout(async () => {
-      IC.get(IcEnum.Level1).init();
+      await IC.get(IcEnum.Level1).init();
       await super.fadeOut();
+      loader.destroy();
 
       const newCutscene = new Level1Cutscene();
       IC.register(IcEnum.Level1Cutscene, newCutscene);

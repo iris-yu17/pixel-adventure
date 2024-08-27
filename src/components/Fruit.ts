@@ -5,7 +5,7 @@ import IC from "./InstanceContainer";
 import { Z_INDEX } from "../constants/config";
 import IcEnum from "../types/instanceContainer";
 
-const FRAME = {
+export const FRAME = {
   FRUIT: 17,
   BUBBLE: 6,
 };

@@ -55,7 +55,7 @@ class Scene {
     textSpriteArr.forEach((alphabet) => {
       text.addChild(alphabet);
     });
-    text.scale.set(2);
+    text.scale.set(1.5);
     text.zIndex = Z_INDEX.MASK;
 
     // 預設置中
