@@ -8,6 +8,7 @@ import Level3Cutscene from "./scene/Level3Cutscene";
 import WinCutscene from "./scene/WinCutscene";
 import IcEnum from "./types/instanceContainer";
 import Win from "./scene/Win";
+import LoadingScene from "./scene/LoadingScene";
 
 const level1 = new Level(1);
 IC.register(IcEnum.Level1, level1);
@@ -18,10 +19,10 @@ IC.register(IcEnum.Level2, level2);
 const level3 = new Level(3);
 IC.register(IcEnum.Level3, level3);
 
-// level1.init();
+const loading = new LoadingScene();
+loading.init()
 
 const opening = new Opening();
-opening.init();
 IC.register(IcEnum.Opening, opening);
 
 const gameover = new Gameover();

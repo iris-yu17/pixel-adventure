@@ -6,6 +6,7 @@ enum IcEnum {
   Level2Cutscene = 'level2Cutscene',
   Level3Cutscene = 'level3Cutscene',
   WinCutscene = 'winCutscene',
+  LoadingScene = 'loadingScene',
   Gameover = 'gameover',
   Opening = 'opening',
   Win = 'win',
