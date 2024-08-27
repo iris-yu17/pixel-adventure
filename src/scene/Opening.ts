@@ -27,12 +27,12 @@ class Opening extends Scene {
   async init() {
     await super.init();
 
-    this.bg.init();
-    this.map.init();
-    this.fruits.init();
-    this.monsters.init();
-    this.createStartButton();
-    this.createCheckpoint();
+    await this.bg.init();
+    await this.map.init();
+    await this.fruits.init();
+    await this.monsters.init();
+    await this.createStartButton();
+    await this.createCheckpoint();
   }
 
   async createCheckpoint() {
