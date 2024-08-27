@@ -5,6 +5,7 @@ import Opening from "./scene/Opening";
 import Level1Cutscene from "./scene/Level1Cutscene";
 import Level2Cutscene from "./scene/Level2Cutscene";
 import Level3Cutscene from "./scene/Level3Cutscene";
+import WinCutscene from "./scene/WinCutscene";
 import IcEnum from "./types/instanceContainer";
 import Win from "./scene/Win";
 
@@ -37,3 +38,6 @@ IC.register(IcEnum.Level2Cutscene, level2Cutscene);
 
 const level3Cutscene = new Level3Cutscene();
 IC.register(IcEnum.Level3Cutscene, level3Cutscene);
+
+const winCutscene = new WinCutscene();
+IC.register(IcEnum.WinCutscene, winCutscene);

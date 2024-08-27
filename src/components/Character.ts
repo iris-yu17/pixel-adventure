@@ -243,7 +243,7 @@ class Character {
 
       if (currentLevel === 3) {
         levelRecord.setLevel = 1;
-        IC.get(IcEnum.Win).init();
+        IC.get(IcEnum.WinCutscene).init();
         return;
       }
 
