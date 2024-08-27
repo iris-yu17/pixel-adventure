@@ -14,7 +14,7 @@ import IcEnum from "../types/instanceContainer";
 import { app } from "../app";
 
 class Opening extends Scene {
-  bg: Background = new Background(BackgroundColor.Gray);
+  bg: Background = new Background(BackgroundColor.Purple);
   map: Terrain = new Terrain(map_opening);
   fruits: Fruits = new Fruits(fruits_opening);
   monsters: Monsters = new Monsters(monster_opening);
@@ -50,6 +50,12 @@ class Opening extends Scene {
     btn.position.set(SCREEN.WIDTH / 2 - width / 2, SCREEN.HEIGHT / 2 - height / 2);
 
     btn.interactive = true;
+
+    // window.addEventListener('keydown', async (e) => {
+    //   await this.destroy();
+    //   await IC.get(IcEnum.Level1Cutscene).init();
+    // });
+
     btn.cursor = 'pointer';
     btn.on('pointerdown', async () => {
       await this.destroy();

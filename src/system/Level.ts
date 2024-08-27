@@ -48,7 +48,7 @@ const config: GameConfig = {
   background: {
     lv1: BackgroundColor.Green,
     lv2: BackgroundColor.Brown,
-    lv3: BackgroundColor.Purple,
+    lv3: BackgroundColor.Gray,
   }
 };
 class Level {
