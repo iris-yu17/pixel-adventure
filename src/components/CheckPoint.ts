@@ -1,6 +1,6 @@
 import { AnimatedSprite, Assets, Sprite, Texture, Ticker } from "pixi.js";
 import { app } from "../app";
-import { CHECKPOINT, Z_INDEX } from "../constants/config";
+import { CHECKPOINT, TILE, Z_INDEX } from "../constants/config";
 
 class CheckPoint {
   finish: boolean = false;
@@ -20,7 +20,7 @@ class CheckPoint {
       textureArray.push(Texture.from(`flag_${i}.png`));
     }
     this.destination = new AnimatedSprite(textureArray);
-    this.destination.position.set(this.destinationPosition.x, 0);
+    this.destination.position.set(this.destinationPosition.x, - TILE.SIZE);
     this.destination.anchor.set(0.5);
     this.destination.scale.x = -1;
     this.destination.zIndex = Z_INDEX.CHECKPOINT;
